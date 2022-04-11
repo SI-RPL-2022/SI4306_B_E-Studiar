@@ -9,35 +9,42 @@
 }
 
 .primary-color {
-    color: var(--primary-color);
+    color: var(--primary-color) !important;
 }
 
 .secondary-color {
-    color: var(--secondary-color);
+    color: var(--secondary-color) !important;
 }
 .black-color {
-    color: var(--black-color);
+    color: var(--black-color) !important;
 }
 .grey-shades-1-color {
-    color: var(--grey-shades-1-color);
+    color: var(--grey-shades-1-color) !important;
 }
 .grey-shades-2-color {
-    color: var(--grey-shades-2-color);
+    color: var(--grey-shades-2-color) !important;
 }
 
 .primary-bg {
-    background-color: var(--primary-color);
+    background-color: var(--primary-color) !important;
+    color: white !important;
 }
 
 .secondary-bg {
-    background-color: var(--secondary-color);
+    background-color: var(--secondary-color) !important;
+    color: white !important;
 }
 .black-bg {
-    background-color: var(--black-color);
+    background-color: var(--black-color) !important;
+    color: white !important;
 }
 .grey-shades-1-bg {
-    background-color: var(--grey-shades-1-color);
+    background-color: var(--grey-shades-1-color) !important;
 }
 .grey-shades-2-bg {
-    background-color: var(--grey-shades-2-color);
+    background-color: var(--grey-shades-2-color) !important;
+}
+
+.circle {
+    border-radius: 50%;
 }

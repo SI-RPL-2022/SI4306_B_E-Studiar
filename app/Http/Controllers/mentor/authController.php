@@ -62,7 +62,7 @@ class authController extends Controller
         $request->gambar->move(public_path('img/kelas/' . $data_calon_mentor['id']), $imgName);
 
         Session::forget('calonMentorTemporary');
-        return view('index');
+        return redirect('mentor/registrasi');
     }
 
     public function index()

@@ -213,7 +213,7 @@
             <h1 class="fw-bold mb-4 fs-7">Anda juga bisa menjadi mentor yang hebat</h1>
             <p class="mb-5 text-info fw-medium">Bagikan pengetahuan dan passion Anda lalu jadilah seseorang yang mandiri
             </p>
-            <button class="btn btn-warning btn-md">Bergabung Bersama Estudiar</button>
+            <a class="btn btn-warning btn-md" href="/mentor/registrasi">Bergabung Bersama Estudiar</a>
           </div>
         </div>
       </div><!-- end of .container-->
