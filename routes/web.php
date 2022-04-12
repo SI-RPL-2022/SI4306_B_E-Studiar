@@ -24,11 +24,6 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/pencarianguru', function () {
-    return view('pencarianguru');
-});
-
-
 Route::get('user/register', [RegisterController::class, 'index']);
 Route::post('user/register', [RegisterController::class, 'store']);
 
