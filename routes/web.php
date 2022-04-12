@@ -35,6 +35,10 @@ Route::get('user/login', [LoginController::class, 'index'])->name('login')->midd
 Route::post('user/login', [LoginController::class, 'authenticate']);
 Route::post('user/logout', [LoginController::class, 'logout']);
 
+Route::get('/pencarianguru', function () {
+    return view('pencarianguru');
+});
+
 Route::get('mentor/registrasi', [authController::class, 'registrasi']);
 Route::post('mentor/store_registrasi', [authController::class, 'store_registrasi']);
 Route::post('mentor/registrasi/pilih_bidang', [authController::class, 'pilih_bidang']);
