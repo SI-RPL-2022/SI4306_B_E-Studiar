@@ -54,12 +54,8 @@
             <li class="nav-item"><a class="nav-link" aria-current="page" href="#marketing">Ulasan</a></li>
           </ul>
           <div class="d-flex ms-lg-4">
-            <a class="btn btn-secondary-outline" href="#!">Masuk</a>
-            <div class="button-signup">
-              <button type="button" style="background-color: #1780E2; color:white; margin-left:8px"
-                class="btn">Daftar</button>
-            </div>
-
+            <a class="btn btn-secondary-outline" href="/user/login">Masuk</a>
+            <a class="btn" style="background-color: #1780E2; color:white; margin-left:8px" href="/user/register">Daftar</a>
           </div>
         </div>
       </div>

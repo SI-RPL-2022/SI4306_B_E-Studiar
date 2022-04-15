@@ -1,0 +1,49 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+.h1 {
+    color: #1780e2;
+    margin-bottom: 70px;
+    font-size: 45px;
+    letter-spacing: 2px;
+}
+
+.search-field {
+    height: 50px;
+    padding: 10px;
+    border: 1px solid #1780e2;
+    border-radius: 25px;
+    outline: none;
+}
+
+.guru {
+    width: 400px;
+}
+
+.lokasi {
+    width: 200px;
+}
+.search-btn {
+    height: 50px;
+    width: 150px;
+    background-color: #1780e2;
+    border: none;
+    border-radius: 25px;
+    color: white;
+}
+.search-btn:hover {
+    background: #3d9ffc;
+    cursor: pointer;
+}
+.form-box {
+    padding: 10px;
+}
+
+.card-img-top {
+    max-height: 200px;
+}
+
+.card-guru {
+    text-decoration: none;
+}
