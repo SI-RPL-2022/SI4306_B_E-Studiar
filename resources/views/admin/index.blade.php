@@ -10,7 +10,15 @@
 <!-- Content Row -->
 <div class="row">
 
-
+  @if (auth()->user())
+  <div class="d-flex ms-lg-4">
+    <h5>Hai, {{ auth()->user()->nama }}</h5>
+    <form action="/user/logout" method="POST">
+      @csrf
+      <button class="btn btn-danger" style="margin-left:8px">Logout</button>
+    </form>
+  </div>
+  @endif
 
 </div>
 @endsection

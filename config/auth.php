@@ -40,6 +40,16 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'admin' => [
+            'redirectTo' => 'admin',
+            'driver' => 'session',
+            'provider' => 'admin',
+        ],
+        'mentor' => [
+            'redirectTo' => 'mentor',
+            'driver' => 'session',
+            'provider' => 'mentor',
+        ],
     ],
 
     /*
@@ -64,6 +74,14 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        'admin' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class
+        ],
+        'mentor' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Mentor::class
+        ]
 
         // 'users' => [
         //     'driver' => 'database',
@@ -93,6 +111,18 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        // 'admin' => [
+        //     'provider' => 'admin',
+        //     'table' => 'password_resets',
+        //     'expire' => 60,
+        //     'throttle' => 60,
+        // ],
+        // 'mentor' => [
+        //     'provider' => 'mentor',
+        //     'table' => 'password_resets',
+        //     'expire' => 60,
+        //     'throttle' => 60,
+        // ],
     ],
 
     /*

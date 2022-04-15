@@ -1,20 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\mentor;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
-class adminController extends Controller
+class mentorController extends Controller
 {
-    protected $redirectTo = '/admin/login';
-
-    public function __construct()
-    {
-        $this->middleware('auth:admin');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +14,7 @@ class adminController extends Controller
      */
     public function index()
     {
-        return view('admin.index');
+        return view('mentor/dashboard');
     }
 
     /**
