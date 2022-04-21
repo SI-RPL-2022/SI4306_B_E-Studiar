@@ -17,6 +17,7 @@ class CreateCalonMentorsTable extends Migration
             $table->bigInteger('id')->unsigned()->primary();
             $table->string('nama');
             $table->string('email');
+            $table->string('status')->default('Belum Dikonfirmasi');
             $table->date('tgl_lahir');
             $table->integer('tahun_ngajar');
             $table->longText('deskripsi');

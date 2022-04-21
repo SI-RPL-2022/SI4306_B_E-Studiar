@@ -54,12 +54,8 @@
             <li class="nav-item"><a class="nav-link" aria-current="page" href="#marketing">Ulasan</a></li>
           </ul>
           <div class="d-flex ms-lg-4">
-            <a class="btn btn-secondary-outline" href="#!">Masuk</a>
-            <div class="button-signup">
-              <button type="button" style="background-color: #1780E2; color:white; margin-left:8px"
-                class="btn">Daftar</button>
-            </div>
-
+            <a class="btn btn-secondary-outline" href="/user/login">Masuk</a>
+            <a class="btn" style="background-color: #1780E2; color:white; margin-left:8px" href="/user/register">Daftar</a>
           </div>
         </div>
       </div>
@@ -213,7 +209,7 @@
             <h1 class="fw-bold mb-4 fs-7">Anda juga bisa menjadi mentor yang hebat</h1>
             <p class="mb-5 text-info fw-medium">Bagikan pengetahuan dan passion Anda lalu jadilah seseorang yang mandiri
             </p>
-            <button class="btn btn-warning btn-md">Bergabung Bersama Estudiar</button>
+            <a class="btn btn-warning btn-md" href="/mentor/registrasi">Bergabung Bersama Estudiar</a>
           </div>
         </div>
       </div><!-- end of .container-->

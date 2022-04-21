@@ -42,6 +42,8 @@
 
             <button type="submit" class="btn col-12 btn-primary">Selanjutnya</button>
           </form>
+          <small class="d-block mt-3">Sudah punya akun Estudiar? <a class="text-primary" href="/mentor/login"> Masuk
+              disini</a></small>
         </div>
       </div>
 

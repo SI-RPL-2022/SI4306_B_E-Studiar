@@ -31,3 +31,9 @@ function getCalonMentorData()
   global $data_sementara_calon_mentor;
   return $data_sementara_calon_mentor;
 }
+
+function rupiah($angka)
+{
+  $hasil_rupiah = "Rp " . number_format($angka, 0, ',', '.');
+  return $hasil_rupiah;
+}

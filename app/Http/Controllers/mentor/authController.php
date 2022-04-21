@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BidangAjar;
 use App\Models\CalonMentor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -62,7 +63,40 @@ class authController extends Controller
         $request->gambar->move(public_path('img/kelas/' . $data_calon_mentor['id']), $imgName);
 
         Session::forget('calonMentorTemporary');
-        return view('index');
+        return redirect('/');
+    }
+
+    public function login()
+    {
+        return view('mentor/auth/login');
+    }
+
+    public function authenticate(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email:dns'],
+            'password' => ['required']
+        ]);
+
+        if (Auth::guard('mentor')->attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/mentor');
+        }
+
+        return back()->withErrors($credentials);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+        return redirect('/');
+    }
+
+    protected function guard()
+    {
+        return Auth::guard('mentor');
     }
 
     public function index()
