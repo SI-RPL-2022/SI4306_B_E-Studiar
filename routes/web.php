@@ -34,6 +34,7 @@ Route::get('/detail/mentor', function () {
 
 Route::get('/pencarianguru', function () {
     return view('pencarianguru');
+});
 // ADMIN ROUTES
 
 // ['middleware' => ['role:admin']]
