@@ -28,14 +28,12 @@ Route::get('/', function () {
     return view('index');
 });
 
-<<<<<<< HEAD
 Route::get('/detail/mentor', function () {
     return view('mentor/auth/detailMentor');
 });
 
 Route::get('/pencarianguru', function () {
     return view('pencarianguru');
-=======
 // ADMIN ROUTES
 
 // ['middleware' => ['role:admin']]
@@ -47,7 +45,6 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('admin/calon-mentor/{id}/tolak', [mentorController::class, 'tolak_mentor']);
     Route::get('admin/mentor', [mentorController::class, 'index']);
     Route::post('admin/logout', [adminLogin::class, 'logout']);
->>>>>>> d14b6337c0b9b122ccbd7b9630a41b1e1f8de928
 });
 
 Route::get('admin/login', [adminLogin::class, 'login'])->name('admin.login');
