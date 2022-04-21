@@ -24,6 +24,10 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/detail/mentor', function () {
+    return view('mentor/auth/detailMentor');
+});
+
 Route::get('/pencarianguru', function () {
     return view('pencarianguru');
 });
