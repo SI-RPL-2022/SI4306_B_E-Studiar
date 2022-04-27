@@ -69,7 +69,7 @@
             <p class="mb-6 lead text-secondary">Cari mentor privat untuk <span style="font-weight: bold">TK/PAUD, SD,
                 SMP, SMA, Universitas dan Umum.</span> Kualitas pengajar terjamin dan berpengalaman di bidangnya. Kamu
               juga bisa atur kebutuhan belajarmu.</p>
-            <div class="text-center text-md-start"><a class="btn btn-warning me-3 btn-lg" href="#!" role="button">Mulai
+            <div class="text-center text-md-start"><a class="btn btn-warning me-3 btn-lg" href="/pencarianguru" role="button">Mulai
                 belajar</a></div>
           </div>
           <div class="col-md-6 text-end"><img class="pt-7 pt-md-0 img-fluid" src="assets/img/hero/hero-img.png"
