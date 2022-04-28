@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\adminController;
 use App\Http\Controllers\admin\adminLogin;
 use App\Http\Controllers\admin\mentorController;
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\mentor\authController;
 use App\Http\Controllers\mentor\mentorController as MentorMentorController;
 use App\Http\Controllers\user\RegisterController;
@@ -32,11 +33,10 @@ Route::get('/detail/mentor', function () {
     return view('mentor/auth/detailMentor');
 });
 
-Route::get('/pencarianguru', function () {
-    return view('pencarianguru');
-});
-// ADMIN ROUTES
+Route::get('/pencarianguru', [MainController::class, 'pencarian_guru']);
+Route::post('/pencarianguru/filter', [MainController::class, 'filter_guru']);
 
+// ADMIN ROUTES
 // ['middleware' => ['role:admin']]
 Route::middleware('auth:admin')->group(function () {
     Route::get('admin', [adminController::class, 'index']);
@@ -63,9 +63,6 @@ Route::get('user/login', [LoginController::class, 'index'])->name('login')->midd
 Route::post('user/login', [LoginController::class, 'authenticate']);
 Route::post('user/logout', [LoginController::class, 'logout']);
 
-Route::get('/pencarianguru', function () {
-    return view('pencarianguru');
-});
 
 Route::middleware('auth:mentor')->group(function () {
     Route::get('mentor', [MentorMentorController::class, 'index']);

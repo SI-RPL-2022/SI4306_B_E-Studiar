@@ -9,9 +9,24 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class authController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if (session('success')) {
+                Alert::success(session('success'));
+            }
+
+            if (session('error')) {
+                Alert::error(session('error'));
+            }
+
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      *
@@ -63,7 +78,8 @@ class authController extends Controller
         $request->gambar->move(public_path('img/kelas/' . $data_calon_mentor['id']), $imgName);
 
         Session::forget('calonMentorTemporary');
-        return redirect('/');
+        alert()->success('Registrasi berhasil', 'Silakan tunggu acc dari administrator');
+        return redirect('mentor/registrasi');
     }
 
     public function login()

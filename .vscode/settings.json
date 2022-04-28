@@ -16,5 +16,6 @@
     "blade.format.enable": true,
     "editor.tabSize": 2,
     "editor.wordWrap": "on",
-    "editor.minimap.maxColumn": 80
+    "editor.minimap.maxColumn": 80,
+    "intelephense.diagnostics.undefinedTypes": false
 }

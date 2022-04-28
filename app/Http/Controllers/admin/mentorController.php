@@ -9,9 +9,25 @@ use App\Models\Mentor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class mentorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if (session('success')) {
+                Alert::success(session('success'));
+            }
+
+            if (session('error')) {
+                Alert::error(session('error'));
+            }
+
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      *
@@ -42,8 +58,8 @@ class mentorController extends Controller
 
     public function terima_mentor($id)
     {
-        DB::transaction(function () use ($id) {
-            $calon_mentors = CalonMentor::find($id);
+        $calon_mentors = CalonMentor::find($id);
+        DB::transaction(function () use ($calon_mentors) {
 
             $mentor = new Mentor();
             $mentor->id = $calon_mentors['id'];
@@ -58,16 +74,17 @@ class mentorController extends Controller
             $calon_mentors->delete();
         });
 
-        return redirect('admin/mentor');
+        return redirect('admin/calon-mentor')->with('success', 'Berhasil acc akun mentor ' . $calon_mentors['nama']);
     }
 
     public function tolak_mentor($id)
     {
-        CalonMentor::find($id)->update([
+        $calon_mentors = CalonMentor::find($id);
+        $calon_mentors->update([
             'status' => 'ditolak',
         ]);
 
-        return redirect('admin/calon-mentor');
+        return redirect('admin/calon-mentor')->with('success', 'Berhasil menolak akun mentor ' . $calon_mentors->nama);;
     }
 
     /**
