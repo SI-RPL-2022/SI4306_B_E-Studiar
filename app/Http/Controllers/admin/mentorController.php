@@ -69,6 +69,7 @@ class mentorController extends Controller
             $mentor->tgl_lahir = $calon_mentors['tgl_lahir'];
             $mentor->tahun_ngajar = $calon_mentors['tahun_ngajar'];
             $mentor->deskripsi = $calon_mentors['deskripsi'];
+            $mentor->gambar = $calon_mentors['gambar'];
             $mentor->save();
 
             $calon_mentors->delete();

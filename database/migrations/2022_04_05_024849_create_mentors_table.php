@@ -21,6 +21,7 @@ class CreateMentorsTable extends Migration
             $table->date('tgl_lahir');
             $table->integer('tahun_ngajar');
             $table->longText('deskripsi');
+            $table->longText('gambar')->default('default-profile.jpg');
             $table->timestamps();
         });
     }

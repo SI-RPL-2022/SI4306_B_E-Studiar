@@ -23,8 +23,8 @@
     <div class="card-body">
       <div class="row justify-content-between">
         <div class="col-3 d-flex justify-content-center">
-          <img src="https://content.magnumphotos.com/wp-content/uploads/2022/03/Y9A6127-220x165.jpg" height="250px"
-            width="200px" alt="" srcset="" style="border-radius: 16px">
+          <img src="/img/{{$calon_mentors->gambar}}" height="250px" width="200px" alt="" srcset=""
+            style="border-radius: 16px">
         </div>
         <div class="col-4">
           <h4>Tentang</h4>
@@ -72,34 +72,6 @@
           </div>
         </li>
         @endforeach
-
-        {{-- <li class="col-4">
-          <div class="-1">
-            <div class="flex">
-              <span class="badge bg-warning text-dark mb-0">Sejarah</span>
-              <span class="badge bg-light text-dark">Rp. 5.000.000</span>
-            </div>
-            <h5 class="font-weight-bold text-primary">Pendidikan Sejarah Indoensia</h5>
-          </div>
-        </li>
-        <li class="col-4">
-          <div class="-1">
-            <div class="flex">
-              <span class="badge bg-warning text-dark mb-0">Sejarah</span>
-              <span class="badge bg-light text-dark">Rp. 5.000.000</span>
-            </div>
-            <h5 class="font-weight-bold text-primary">Pendidikan Sejarah Indoensia</h5>
-          </div>
-        </li>
-        <li class="col-4">
-          <div class="-1">
-            <div class="flex">
-              <span class="badge bg-warning text-dark mb-0">Sejarah</span>
-              <span class="badge bg-light text-dark">Rp. 5.000.000</span>
-            </div>
-            <h5 class="font-weight-bold text-primary">Pendidikan Sejarah Indoensia</h5>
-          </div>
-        </li> --}}
       </ul>
 
     </div>

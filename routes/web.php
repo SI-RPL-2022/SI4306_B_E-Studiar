@@ -29,7 +29,7 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/detail/mentor', function () {
+Route::get('/detail/mentor/{idMentor}', function () {
     return view('mentor/auth/detailMentor');
 });
 

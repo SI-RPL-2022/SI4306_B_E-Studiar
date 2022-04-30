@@ -9,7 +9,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Data</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -41,7 +41,7 @@
                             <td>{{$data->nama}}</td>
                             <td>{{$data->email}}</td>
                             <td>{{$data->tgl_lahir}}</td>
-                            <td>{{$data->tahun_ngajar}}</td>
+                            <td>{{$data->tahun_ngajar}} tahun</td>
                             <td>
                                 <a href="/admin/calon-mentor/{{$data->id}}/detail"
                                     class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
