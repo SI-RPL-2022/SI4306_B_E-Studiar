@@ -114,7 +114,7 @@
           </div>
         </div>
         <br>
-        <div class="text-center"><a class="btn btn-warning" href="#!" role="button">Bergabung Sekarang</a></div>
+        <div class="text-center"><a class="btn btn-warning" href="/user/register" role="button">Bergabung Sekarang</a></div>
       </div><!-- end of .container-->
 
     </section>
