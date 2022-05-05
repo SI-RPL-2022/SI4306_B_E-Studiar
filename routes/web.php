@@ -8,6 +8,7 @@ use App\Http\Controllers\mentor\authController;
 use App\Http\Controllers\mentor\mentorController as MentorMentorController;
 use App\Http\Controllers\user\RegisterController;
 use App\Http\Controllers\user\LoginController;
+use App\Http\Controllers\user\DetailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,9 +30,8 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/detail/mentor/{idMentor}', function () {
-    return view('mentor/auth/detailMentor');
-});
+
+Route::get('/detail/mentor/{idMentor}', [DetailController::class, 'detailMentor'])->middleware('auth');
 
 Route::get('/pencarianguru', [MainController::class, 'pencarian_guru']);
 Route::post('/pencarianguru/filter', [MainController::class, 'filter_guru']);

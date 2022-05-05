@@ -11,7 +11,7 @@
 <body>
   <h1>DASHBOARD MENTOR</h1>
   @if (auth()->user())
-  <div class="d-flex ms-lg-4">
+  <div class="d-flex ms-lg-4 ">
     <h5>Hai, {{ auth()->user()->nama }}</h5>
     <form action="/user/logout" method="POST">
       @csrf
