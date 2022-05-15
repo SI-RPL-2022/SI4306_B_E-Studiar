@@ -5,8 +5,8 @@ use App\Http\Controllers\admin\adminLogin;
 use App\Http\Controllers\admin\mentorController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\mentor\authController;
-use App\Http\Controllers\mentor\mentorController as MentorMentorController;
 use App\Http\Controllers\user\RegisterController;
+use App\Http\Controllers\user\PermintaanController;
 use App\Http\Controllers\user\LoginController;
 use App\Http\Controllers\user\DetailController;
 use Illuminate\Support\Facades\Route;
@@ -31,10 +31,13 @@ Route::get('/', function () {
 });
 
 
-Route::get('/detail/mentor/{idMentor}', [DetailController::class, 'detailMentor'])->middleware('auth');
+Route::get('/detail/mentor/{idMentor}', [DetailController::class, 'detailMentor']);
 
 Route::get('/pencarianguru', [MainController::class, 'pencarian_guru']);
 Route::post('/pencarianguru/filter', [MainController::class, 'filter_guru']);
+
+// Permintaan ajar
+Route::post('/permintaan/ajar', [PermintaanController::class, 'permintaan_ajar']);
 
 // ADMIN ROUTES
 // ['middleware' => ['role:admin']]
