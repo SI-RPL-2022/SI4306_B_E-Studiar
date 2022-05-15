@@ -48,7 +48,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('admin/calon-mentor/{id}/terima', [mentorController::class, 'terima_mentor']);
     Route::post('admin/calon-mentor/{id}/tolak', [mentorController::class, 'tolak_mentor']);
     Route::get('admin/mentor', [mentorController::class, 'index']);
-    Route::post('admin/logout', [adminLogin::class, 'logout']);
+    Route::get('admin/logout', [adminLogin::class, 'logout']);
 });
 
 Route::get('admin/login', [adminLogin::class, 'login'])->name('admin.login');

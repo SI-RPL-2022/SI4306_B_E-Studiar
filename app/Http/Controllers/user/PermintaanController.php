@@ -12,6 +12,7 @@ class PermintaanController extends Controller
 {
   public function __construct()
   {
+    toast('Silakan login terlebih dahulu untuk melanjutkan!', 'error', 'top-right');
     $this->middleware('auth');
   }
 

@@ -54,8 +54,26 @@
             <li class="nav-item"><a class="nav-link" aria-current="page" href="#marketing">Ulasan</a></li>
           </ul>
           <div class="d-flex ms-lg-4">
-            <a class="btn btn-secondary-outline" href="/user/login">Masuk</a>
-            <a class="btn" style="background-color: #1780E2; color:white; margin-left:8px" href="/user/register">Daftar</a>
+
+            <div class="dropdown">
+              <a class="btn btn-secondary-outline" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                aria-expanded="false">Masuk</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="/admin/login">Sebagai Admin</a></li>
+                <li><a class="dropdown-item" href="/mentor/login">Sebagai Mentor</a></li>
+                <li><a class="dropdown-item" href="/user/login">Sebagai User / Murid</a></li>
+              </ul>
+            </div>
+            <div class="dropdown">
+              <a class="btn" id="dropdownMenuDaftar" data-bs-toggle="dropdown" aria-expanded="false"
+                style="background-color: #1780E2; color:white; margin-left:8px" href="/user/register">Daftar</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuDaftar"
+                style="background-color: #1780E2; color:white; margin-left:8px">
+                <li><a class="dropdown-item text-white" href="/mentor/registrasi">Sebagai Mentor</a></li>
+                <li><a class="dropdown-item text-white" href="/user/register">Sebagai User / Murid</a></li>
+              </ul>
+            </div>
+
           </div>
         </div>
       </div>
@@ -69,7 +87,8 @@
             <p class="mb-6 lead text-secondary">Cari mentor privat untuk <span style="font-weight: bold">TK/PAUD, SD,
                 SMP, SMA, Universitas dan Umum.</span> Kualitas pengajar terjamin dan berpengalaman di bidangnya. Kamu
               juga bisa atur kebutuhan belajarmu.</p>
-            <div class="text-center text-md-start"><a class="btn btn-warning me-3 btn-lg" href="/pencarianguru" role="button">Mulai
+            <div class="text-center text-md-start"><a class="btn btn-warning me-3 btn-lg" href="/pencarianguru"
+                role="button">Mulai
                 belajar</a></div>
           </div>
           <div class="col-md-6 text-end"><img class="pt-7 pt-md-0 img-fluid" src="assets/img/hero/hero-img.png"
@@ -114,7 +133,8 @@
           </div>
         </div>
         <br>
-        <div class="text-center"><a class="btn btn-warning" href="/user/register" role="button">Bergabung Sekarang</a></div>
+        <div class="text-center"><a class="btn btn-warning" href="/user/register" role="button">Bergabung Sekarang</a>
+        </div>
       </div><!-- end of .container-->
 
     </section>
