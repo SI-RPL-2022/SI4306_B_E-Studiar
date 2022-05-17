@@ -57,9 +57,24 @@
             <li class="nav-item"><a class="nav-link" aria-current="page" href="#marketing">Ulasan</a></li>
           </ul>
           <div class="d-flex ms-lg-4">
-            <a class="btn btn-secondary-outline" href="/user/login">Masuk</a>
-            <a class="btn" style="background-color: #1780E2; color:white; margin-left:8px"
-              href="/user/register">Daftar</a>
+            <div class="dropdown">
+              <a class="btn btn-secondary-outline" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                aria-expanded="false">Masuk</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="/admin/login">Sebagai Admin</a></li>
+                <li><a class="dropdown-item" href="/mentor/login">Sebagai Mentor</a></li>
+                <li><a class="dropdown-item" href="/user/login">Sebagai User / Murid</a></li>
+              </ul>
+            </div>
+            <div class="dropdown">
+              <a class="btn" id="dropdownMenuDaftar" data-bs-toggle="dropdown" aria-expanded="false"
+                style="background-color: #1780E2; color:white; margin-left:8px" href="/user/register">Daftar</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuDaftar"
+                style="background-color: #1780E2; color:white; margin-left:8px">
+                <li><a class="dropdown-item text-white" href="/mentor/registrasi">Sebagai Mentor</a></li>
+                <li><a class="dropdown-item text-white" href="/user/register">Sebagai User / Murid</a></li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -142,9 +157,9 @@
 
   @include('sweetalert::alert')
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+  {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-  </script>
+  </script> --}}
   <script src="/vendors/@popperjs/popper.min.js"></script>
   <script src="/vendors/bootstrap/bootstrap.min.js"></script>
   <script src="/vendors/is/is.min.js"></script>

@@ -5,8 +5,8 @@ use App\Http\Controllers\admin\adminLogin;
 use App\Http\Controllers\admin\mentorController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\mentor\authController;
-use App\Http\Controllers\mentor\mentorController as MentorMentorController;
 use App\Http\Controllers\user\RegisterController;
+use App\Http\Controllers\user\PermintaanController;
 use App\Http\Controllers\user\LoginController;
 use App\Http\Controllers\user\DetailController;
 use Illuminate\Support\Facades\Route;
@@ -34,11 +34,14 @@ Route::get('kelolaakun', function () {
 });
 
 
-Route::get('/detail/mentor/{idMentor}', [DetailController::class, 'detailMentor'])->middleware('auth');
+Route::get('/detail/mentor/{idMentor}', [DetailController::class, 'detailMentor']);
 
 Route::get('/pencarianguru', [MainController::class, 'pencarian_guru']);
 Route::get('/mengelolaakun', [MainController::class, 'mengelola_akun']);
 Route::post('/pencarianguru/filter', [MainController::class, 'filter_guru']);
+
+// Permintaan ajar
+Route::post('/permintaan/ajar', [PermintaanController::class, 'permintaan_ajar']);
 
 // ADMIN ROUTES
 // ['middleware' => ['role:admin']]
@@ -49,9 +52,13 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('admin/calon-mentor/{id}/terima', [mentorController::class, 'terima_mentor']);
     Route::post('admin/calon-mentor/{id}/tolak', [mentorController::class, 'tolak_mentor']);
     Route::get('admin/mentor', [mentorController::class, 'index']);
+
     Route::post('admin/logout', [adminLogin::class, 'logout']);
     Route::get('admin/mentor', [mentorController::class, 'data_mentor']);
     Route::get('admin/mentor/{id}/detail', [mentorController::class, 'detail_mentor']);
+=======
+    Route::get('admin/logout', [adminLogin::class, 'logout']);
+
 });
 
 Route::get('admin/login', [adminLogin::class, 'login'])->name('admin.login');
