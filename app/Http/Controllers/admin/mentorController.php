@@ -46,7 +46,21 @@ class mentorController extends Controller
         $page = 'Data Calon Mentor';
         return view('admin.calon_mentor.data_calon_mentor', compact('calon_mentors', 'page'));
     }
-
+    public function data_mentor()
+    {
+        // $count = DB::table('hospitals')->count();
+        $mentors = Mentor::orderBy('created_at')->get();
+        $page = 'Data Mentor';
+        return view('admin.mentor.mengelolaakun', compact('mentors', 'page'));
+    }
+    public function detail_mentor($id)
+    {
+        // $count = DB::table('hospitals')->count();
+        $mentors = Mentor::find($id);
+        $bidang = BidangAjar::orderBy('bidang')->where('id_mentor', $mentors->id)->get();
+        $page = 'Data Mentor | ' . $mentors->nama;
+        return view('admin.mentor.detail_mentor', compact('mentors', 'page', 'bidang'));
+    }
     public function detail_calon_mentor($id)
     {
         // $count = DB::table('hospitals')->count();

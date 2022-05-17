@@ -29,11 +29,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
+Route::get('kelolaakun', function () {
+    return view('mengelolaakun');
+});
 
 
 Route::get('/detail/mentor/{idMentor}', [DetailController::class, 'detailMentor'])->middleware('auth');
 
 Route::get('/pencarianguru', [MainController::class, 'pencarian_guru']);
+Route::get('/mengelolaakun', [MainController::class, 'mengelola_akun']);
 Route::post('/pencarianguru/filter', [MainController::class, 'filter_guru']);
 
 // ADMIN ROUTES
@@ -46,6 +50,8 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('admin/calon-mentor/{id}/tolak', [mentorController::class, 'tolak_mentor']);
     Route::get('admin/mentor', [mentorController::class, 'index']);
     Route::post('admin/logout', [adminLogin::class, 'logout']);
+    Route::get('admin/mentor', [mentorController::class, 'data_mentor']);
+    Route::get('admin/mentor/{id}/detail', [mentorController::class, 'detail_mentor']);
 });
 
 Route::get('admin/login', [adminLogin::class, 'login'])->name('admin.login');
