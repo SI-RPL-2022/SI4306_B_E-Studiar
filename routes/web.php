@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\adminLogin;
 use App\Http\Controllers\admin\mentorController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\mentor\authController;
+use App\Http\Controllers\mentor\mentorController as ControllerMentor;
 use App\Http\Controllers\user\RegisterController;
 use App\Http\Controllers\user\PermintaanController;
 use App\Http\Controllers\user\LoginController;
@@ -52,13 +53,10 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('admin/calon-mentor/{id}/terima', [mentorController::class, 'terima_mentor']);
     Route::post('admin/calon-mentor/{id}/tolak', [mentorController::class, 'tolak_mentor']);
     Route::get('admin/mentor', [mentorController::class, 'index']);
-
     Route::post('admin/logout', [adminLogin::class, 'logout']);
     Route::get('admin/mentor', [mentorController::class, 'data_mentor']);
     Route::get('admin/mentor/{id}/detail', [mentorController::class, 'detail_mentor']);
-=======
     Route::get('admin/logout', [adminLogin::class, 'logout']);
-
 });
 
 Route::get('admin/login', [adminLogin::class, 'login'])->name('admin.login');
@@ -78,7 +76,13 @@ Route::post('user/logout', [LoginController::class, 'logout']);
 
 
 Route::middleware('auth:mentor')->group(function () {
-    Route::get('mentor', [MentorMentorController::class, 'index']);
+    Route::get('mentor', [ControllerMentor::class, 'index']);
+
+    // permintaan Ajar
+    Route::get('mentor/permintaan-ajar', [ControllerMentor::class, 'permintaan_ajar']);
+    Route::post('mentor/permintaan-ajar/{id}/terima', [ControllerMentor::class, 'terima_permintaan_ajar']);
+    Route::post('mentor/permintaan-ajar/{id}/tolak', [ControllerMentor::class, 'tolak_permintaan_ajar']);
+
     Route::post('admin/logout', [authController::class, 'logout']);
 });
 

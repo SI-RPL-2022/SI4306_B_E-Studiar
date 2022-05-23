@@ -35,7 +35,7 @@ class mentorController extends Controller
      */
     public function index()
     {
-        //
+        // return view('mentor.dashboard');
     }
 
 

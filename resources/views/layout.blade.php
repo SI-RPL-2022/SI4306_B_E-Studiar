@@ -57,6 +57,20 @@
             <li class="nav-item"><a class="nav-link" aria-current="page" href="#marketing">Ulasan</a></li>
           </ul>
           <div class="d-flex ms-lg-4">
+            @if (auth()->user())
+            <div class="d-flex ms-lg-4">
+              <div class="nama">
+                <h5 style="margin-top:12px">Hai, {{ auth()->user()->nama }}</h5>
+              </div>
+
+              <div class="logout">
+                <form action="/user/logout" method="POST">
+                  @csrf
+                  <button class="btn btn-danger" style="margin-left:8px">Logout</button>
+                </form>
+              </div>
+            </div>
+            @else
             <div class="dropdown">
               <a class="btn btn-secondary-outline" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown"
                 aria-expanded="false">Masuk</a>
@@ -75,6 +89,7 @@
                 <li><a class="dropdown-item text-white" href="/user/register">Sebagai User / Murid</a></li>
               </ul>
             </div>
+            @endif
           </div>
         </div>
       </div>
