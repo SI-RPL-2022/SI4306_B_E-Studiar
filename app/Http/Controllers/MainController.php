@@ -65,6 +65,6 @@ class MainController extends Controller
 
         $data_guru = Mentor::join('bidang_ajars as bidang', 'mentors.id', '=', 'bidang.id_mentor')->get(['mentors.*', 'bidang.id AS id_bidang', 'bidang.*']);
 
-        return view('pencarianguru',  compact('list_guru', 'keyword', 'price', 'price_from', 'price_to', 'min_year', 'max_year', 'data_guru', 'calon_mentors'));
+        return view('pencarianguru',  compact('list_guru', 'keyword', 'price', 'price_from', 'price_to', 'min_year', 'max_year', 'data_guru'));
     }
 }
