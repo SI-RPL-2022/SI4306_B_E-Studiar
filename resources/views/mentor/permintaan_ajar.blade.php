@@ -52,16 +52,19 @@
                     Aksi
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonAksi">
-                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#terima">Terima</a>
+                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
+                        data-bs-target="#terima{{$data->id_permintaan}}">Terima</a>
                     </li>
-                    <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#tolak" href="#">Tolak</a></li>
+                    <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#tolak{{$data->id_permintaan}}"
+                        href="#">Tolak</a></li>
                   </ul>
                 </div>
               </td>
             </tr>
 
             <!-- Modal Terima -->
-            <div class="modal fade" id="terima" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="terima{{$data->id_permintaan}}" tabindex="-1"
+              aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -98,7 +101,8 @@
             {{-- --}}
 
             <!-- Modal Tolak -->
-            <div class="modal fade" id="tolak" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="tolak{{$data->id_permintaan}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">

@@ -26,6 +26,7 @@
     integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Custom fonts for this template-->
+
   <link href="/assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link
     href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -41,6 +42,10 @@
   {{-- Data table --}}
   <link href="/assets/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
 </head>
 
 <body id="page-top">
@@ -189,7 +194,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
   </script>
-  <script src="/assets/admin/vendor/jquery/jquery.min.js"></script>
+  {{-- <script src="/assets/admin/vendor/jquery/jquery.min.js"></script> --}}
   {{-- <script src="/assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> --}}
 
   <!-- Core plugin JavaScript-->
@@ -211,6 +216,7 @@
 
   <!-- Page level custom scripts -->
   <script src="/assets/admin/js/demo/datatables-demo.js"></script>
+
 
 </body>
 

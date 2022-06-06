@@ -5,9 +5,12 @@ namespace App\Http\Controllers\mentor;
 use App\Http\Controllers\Controller;
 use App\Models\JadwalAjar;
 use App\Models\PermintaanAjar;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use MaddHatter\LaravelFullcalendar\Facades\Calendar;
+// use Illuminate\Support\Str;
 
 class mentorController extends Controller
 {
@@ -19,6 +22,56 @@ class mentorController extends Controller
     public function index()
     {
         return view('mentor/dashboard');
+    }
+
+    public function jadwal_ajar()
+    {
+        $jadwal = JadwalAjar::join('users', 'users.id', '=', 'jadwal_ajars.id_pelajar')->where('jadwal_ajars.id_mentor', '=', Auth()->user()->id)->get(['jadwal_ajars.id AS id_jadwal', 'jadwal_ajars.*', 'users.*']);
+        return view('mentor/jadwal_ajar', compact('jadwal'));
+    }
+
+    public function detail_jadwal_ajar($id)
+    {
+        $jadwal = JadwalAjar::join('users', 'users.id', '=', 'jadwal_ajars.id_pelajar')->where('jadwal_ajars.id_mentor', '=', Auth()->user()->id)->where('jadwal_ajars.id', '=', $id)->get(['jadwal_ajars.id AS id_jadwal', 'jadwal_ajars.*', 'users.*'])->first();
+        return view('mentor/detail_jadwal_ajar', compact('jadwal'));
+    }
+
+    public function jadwal_ajar_calendar()
+    {
+        $events = [];
+        $data = JadwalAjar::where('id_mentor', '=', Auth()->user()->id)->get();
+
+        // dd(Str::random(12));
+        if ($data->count()) {
+            foreach ($data as $key => $value) {
+                $user = User::find($value->id_pelajar);
+                $events[] = Calendar::event(
+                    $user->nama,
+                    false,
+                    new \DateTime($value->jadwal),
+                    new \DateTime($value->jadwal . ' +' .  $value->durasi . ' hour'),
+                    $value->id,
+                    [
+                        'url' => 'http://localhost:8000/mentor/jadwal-ajar/' . $value->id
+                    ]
+                );
+            }
+        }
+        // dd($events);
+        $calendar = Calendar::addEvents($events);
+        return view('mentor/jadwal_ajar_calendar', compact('calendar'));
+    }
+
+    public function update_jadwal_ajar($id, Request $request)
+    {
+        $jadwal_ajar = JadwalAjar::find($id);
+        $jadwal_ajar->update([
+            'status' => $request->status,
+            'note' => $request->note,
+        ]);
+
+        alert()->success('Update Berhasil', 'Berhasil update jadwal ajar');
+        return redirect('mentor/jadwal-ajar');
     }
 
     public function permintaan_ajar()

@@ -24,6 +24,12 @@
       <span>Permintaan Ajar</span>
     </a>
   </li>
+  <li class="nav-item {{Request::is('mentor/jadwal-ajar*') ? 'active' : '' }}">
+    <a class="nav-link" href="/mentor/jadwal-ajar">
+      <i class="fa-solid fa-chalkboard-user"></i>
+      <span>Jadwal Ajar</span>
+    </a>
+  </li>
   {{-- <li class="nav-item {{Request::is('admin/mentor*') ? 'active' : '' }}">
     <a class="nav-link" href="/admin/mentor">
       <i class="fa-solid fa-chalkboard-user"></i>

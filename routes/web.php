@@ -83,6 +83,11 @@ Route::middleware('auth:mentor')->group(function () {
     Route::post('mentor/permintaan-ajar/{id}/terima', [ControllerMentor::class, 'terima_permintaan_ajar']);
     Route::post('mentor/permintaan-ajar/{id}/tolak', [ControllerMentor::class, 'tolak_permintaan_ajar']);
 
+    Route::get('mentor/jadwal-ajar/calendar', [ControllerMentor::class, 'jadwal_ajar_calendar']);
+    Route::get('mentor/jadwal-ajar', [ControllerMentor::class, 'jadwal_ajar']);
+    Route::get('mentor/jadwal-ajar/{id}', [ControllerMentor::class, 'detail_jadwal_ajar']);
+    Route::post('mentor/jadwal-ajar/{id}/update', [ControllerMentor::class, 'update_jadwal_ajar']);
+
     Route::post('admin/logout', [authController::class, 'logout']);
 });
 
