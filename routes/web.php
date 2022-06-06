@@ -10,6 +10,7 @@ use App\Http\Controllers\user\RegisterController;
 use App\Http\Controllers\user\PermintaanController;
 use App\Http\Controllers\user\LoginController;
 use App\Http\Controllers\user\DetailController;
+use App\Http\Controllers\user\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -74,6 +75,9 @@ Route::get('user/login', [LoginController::class, 'index'])->name('login')->midd
 Route::post('user/login', [LoginController::class, 'authenticate']);
 Route::post('user/logout', [LoginController::class, 'logout']);
 
+Route::middleware('auth')->group(function () {
+    Route::get('user/profile/{id}', [UserController::class, 'profile']);
+});
 
 Route::middleware('auth:mentor')->group(function () {
     Route::get('mentor', [ControllerMentor::class, 'index']);

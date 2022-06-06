@@ -57,7 +57,27 @@
             <li class="nav-item"><a class="nav-link" aria-current="page" href="#marketing">Ulasan</a></li>
           </ul>
           <div class="d-flex ms-lg-4">
+            {{-- @if(Auth::guard('mentor')->check()) --}}
             @if (auth()->user())
+            {{-- START IF --}}
+            @if (auth()->user()->jenjang_pendidikan)
+            <div class="dropdown">
+              <a class="btn btn-secondary-outline" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                aria-expanded="false">{{ auth()->user()->nama }}</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="/user/profile/{{auth()->user()->id}}">Profile</a></li>
+                <li>
+                  <form action="/user/logout" method="POST">
+                    @csrf
+                    <button class="dropdown-item">
+                      Logout
+                      {{-- <button class="btn btn-danger" style="margin-left:8px">Logout</button> --}}
+                    </button>
+                  </form>
+                </li>
+              </ul>
+            </div>
+            @else
             <div class="d-flex ms-lg-4">
               <div class="nama">
                 <h5 style="margin-top:12px">Hai, {{ auth()->user()->nama }}</h5>
@@ -70,6 +90,9 @@
                 </form>
               </div>
             </div>
+            @endif
+            {{-- END IF --}}
+
             @else
             <div class="dropdown">
               <a class="btn btn-secondary-outline" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown"
@@ -169,7 +192,9 @@
   <!--    JavaScripts-->
   <!-- ===============================================-->
   {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.9/dist/sweetalert2.all.min.js"></script> --}}
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+  </script>
   @include('sweetalert::alert')
 
   {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

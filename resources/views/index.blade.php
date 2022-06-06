@@ -55,6 +55,24 @@
           </ul>
           <div class="d-flex ms-lg-4">
             @if (auth()->user())
+            @if (auth()->user()->jenjang_pendidikan)
+            <div class="dropdown">
+              <a class="btn btn-secondary-outline" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                aria-expanded="false">{{ auth()->user()->nama }}</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="/user/profile/{{auth()->user()->id}}">Profile</a></li>
+                <li>
+                  <form action="/user/logout" method="POST">
+                    @csrf
+                    <button class="dropdown-item">
+                      Logout
+                      {{-- <button class="btn btn-danger" style="margin-left:8px">Logout</button> --}}
+                    </button>
+                  </form>
+                </li>
+              </ul>
+            </div>
+            @else
             <div class="d-flex ms-lg-4">
               <div class="nama">
                 <h5 style="margin-top:12px">Hai, {{ auth()->user()->nama }}</h5>
@@ -67,6 +85,8 @@
                 </form>
               </div>
             </div>
+            @endif
+
             @else
             <div class="dropdown">
               <a class="btn btn-secondary-outline" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown"

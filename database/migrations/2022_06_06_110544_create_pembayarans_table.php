@@ -14,7 +14,12 @@ class CreatePembayaransTable extends Migration
     public function up()
     {
         Schema::create('pembayarans', function (Blueprint $table) {
-            $table->id();
+            $table->bigInteger('id')->unsigned()->primary();
+            $table->bigInteger('id_jadwal')->unsigned()->index()->nullable();
+            $table->bigInteger('id_user')->unsigned()->index()->nullable();
+            $table->string('status')->default('Belum bayar');
+            $table->string('total_bayar');
+            $table->longText('bukti')->nullable();
             $table->timestamps();
         });
     }
