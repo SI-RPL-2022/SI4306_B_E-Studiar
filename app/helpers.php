@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Mentor;
+use App\Models\Pembayaran;
 
 function mentorIdExist($id)
 {
@@ -15,6 +16,21 @@ function generateMentorID()
     return generateMentorID();
   }
 
+  return $number;
+}
+
+function pembayaranIdExist($id)
+{
+  return Pembayaran::where('id', $id)->exists();
+}
+
+function generateNoTransaksi()
+{
+  $number = mt_rand(1000000000, 9999999999);
+
+  if (pembayaranIdExist($number)) {
+    return generateNoTransaksi();
+  }
   return $number;
 }
 

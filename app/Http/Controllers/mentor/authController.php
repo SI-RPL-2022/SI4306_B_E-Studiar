@@ -5,6 +5,7 @@ namespace App\Http\Controllers\mentor;
 use App\Http\Controllers\Controller;
 use App\Models\BidangAjar;
 use App\Models\CalonMentor;
+use App\Models\Mentor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -95,6 +96,11 @@ class authController extends Controller
         ]);
 
         if (Auth::guard('mentor')->attempt($credentials)) {
+            $mentor = Mentor::where('email', $request->email)->first();
+            if ($mentor->status == 'Banned') {
+                alert()->error('Gagal Login', 'Akun anda telah dibanned, silakan hubungi administrator');
+                return redirect()->back();
+            }
             $request->session()->regenerate();
             return redirect()->intended('/mentor');
         }

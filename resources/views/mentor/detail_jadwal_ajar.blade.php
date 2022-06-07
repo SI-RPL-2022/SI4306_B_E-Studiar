@@ -9,6 +9,7 @@
   <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex justify-content-between align-items-center">
       <h6 class="m-0 font-weight-bold">Status: {{$jadwal->status}}</h6>
+      <h6 class="m-0 font-weight-bold">Status Bayar: {{$jadwal->status_bayar}}</h6>
       <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm " type="button" data-bs-toggle="modal"
         data-bs-target="#update{{$jadwal->id_jadwal}}">
         Update

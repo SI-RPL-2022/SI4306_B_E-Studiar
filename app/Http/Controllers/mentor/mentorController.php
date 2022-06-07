@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\mentor;
 
 use App\Http\Controllers\Controller;
+use App\Models\BidangAjar;
 use App\Models\JadwalAjar;
+use App\Models\Pembayaran;
 use App\Models\PermintaanAjar;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -26,13 +28,13 @@ class mentorController extends Controller
 
     public function jadwal_ajar()
     {
-        $jadwal = JadwalAjar::join('users', 'users.id', '=', 'jadwal_ajars.id_pelajar')->where('jadwal_ajars.id_mentor', '=', Auth()->user()->id)->get(['jadwal_ajars.id AS id_jadwal', 'jadwal_ajars.*', 'users.*']);
+        $jadwal = JadwalAjar::join('users', 'users.id', '=', 'jadwal_ajars.id_pelajar')->join('pembayarans', 'pembayarans.id_user', '=', 'jadwal_ajars.id_pelajar')->where('jadwal_ajars.id_mentor', '=', Auth()->user()->id)->get(['jadwal_ajars.id AS id_jadwal', 'jadwal_ajars.*', 'users.*', 'pembayarans.status AS status_bayar', 'pembayarans.tgl_bayar AS tgl_bayar']);
         return view('mentor/jadwal_ajar', compact('jadwal'));
     }
 
     public function detail_jadwal_ajar($id)
     {
-        $jadwal = JadwalAjar::join('users', 'users.id', '=', 'jadwal_ajars.id_pelajar')->where('jadwal_ajars.id_mentor', '=', Auth()->user()->id)->where('jadwal_ajars.id', '=', $id)->get(['jadwal_ajars.id AS id_jadwal', 'jadwal_ajars.*', 'users.*'])->first();
+        $jadwal = JadwalAjar::join('users', 'users.id', '=', 'jadwal_ajars.id_pelajar')->join('pembayarans', 'pembayarans.id_user', '=', 'jadwal_ajars.id_pelajar')->where('jadwal_ajars.id_mentor', '=', Auth()->user()->id)->where('jadwal_ajars.id', '=', $id)->get(['jadwal_ajars.id AS id_jadwal', 'jadwal_ajars.*', 'users.*', 'pembayarans.status AS status_bayar', 'pembayarans.tgl_bayar AS tgl_bayar'])->first();
         return view('mentor/detail_jadwal_ajar', compact('jadwal'));
     }
 
@@ -96,8 +98,18 @@ class mentorController extends Controller
             $jadwal_ajar->link = $request->link;
             $jadwal_ajar->note = $request->note;
             $jadwal_ajar->id_mentor = Auth::id();
-
             $jadwal_ajar->save();
+
+            $bidang = BidangAjar::find($permintaan_ajar['id_bidang']);
+
+            $total_bayar = (int)$jadwal_ajar->durasi * (int)$bidang->tarif;
+
+            $pembayaran = new Pembayaran();
+            $pembayaran->id = generateNoTransaksi();
+            $pembayaran->id_mentor = $jadwal_ajar->id_mentor;
+            $pembayaran->id_user = $permintaan_ajar['id_pelajar'];
+            $pembayaran->total_bayar = $total_bayar;
+            $pembayaran->save();
 
             $permintaan_ajar->delete();
         });

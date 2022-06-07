@@ -57,6 +57,16 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('admin/logout', [adminLogin::class, 'logout']);
     Route::get('admin/mentor', [mentorController::class, 'data_mentor']);
     Route::get('admin/mentor/{id}/detail', [mentorController::class, 'detail_mentor']);
+
+    Route::get('admin/pembayaran', [adminController::class, 'data_pembayaran']);
+    Route::get('admin/pembayaran/{id}/terima', [adminController::class, 'terima_pembayaran']);
+    Route::get('admin/pembayaran/{id}/tolak', [adminController::class, 'tolak_pembayaran']);
+
+    Route::get('admin/mentor/{id}/banned', [mentorController::class, 'banned_mentor']);
+    Route::get('admin/mentor/{id}/hapus', [mentorController::class, 'hapus_mentor']);
+
+
+
     Route::get('admin/logout', [adminLogin::class, 'logout']);
 });
 
@@ -77,6 +87,10 @@ Route::post('user/logout', [LoginController::class, 'logout']);
 
 Route::middleware('auth')->group(function () {
     Route::get('user/profile/{id}', [UserController::class, 'profile']);
+    Route::get('user/profile/{userId}/transaksi/{transaksiId}', [UserController::class, 'detail_history']);
+
+    Route::post('transaksi/{id}/bayar', [UserController::class, 'bayar_transaksi']);
+    Route::post('transaksi/{id}/upload-bukti', [UserController::class, 'upload_bukti_bayar']);
 });
 
 Route::middleware('auth:mentor')->group(function () {

@@ -9,14 +9,16 @@
   <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex justify-content-between align-items-center">
       <h6 class="m-0 font-weight-bold">Status: {{$mentors->status}}</h6>
-      <div class="d-flex align-items-center justify-content-end">
-        {{-- <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm me-2 fw-bold"
-          data-bs-toggle="modal" data-bs-target="#terima"><i class="fas fa-circle-check fa-sm text-white-50"></i>
-          Terima
+      <div class="dropdown">
+        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle" type="button"
+          id="dropdownMenuButtonAksi" data-bs-toggle="dropdown" aria-expanded="false">
+          Aksi
         </button>
-        <button type="button" class="d-none d-sm-inline-block btn btn-sm secondary-bg shadow-sm fw-bold"
-          data-bs-toggle="modal" data-bs-target="#tolak"><i class="fas fa-circle-xmark fa-sm text-white-50"></i>
-          Tolak</button> --}}
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonAksi">
+          <li><a class="dropdown-item" href="/admin/mentor/{{$mentors->id}}/banned">Banned</a>
+          </li>
+          <li><a class="dropdown-item" href="/admin/mentor/{{$mentors->id}}/hapus">Hapus</a></li>
+        </ul>
       </div>
     </div>
 

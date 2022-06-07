@@ -18,6 +18,7 @@ class CreateMentorsTable extends Migration
             $table->string('nama');
             $table->string('password');
             $table->string('email');
+            $table->string('status')->default('Active');
             $table->date('tgl_lahir');
             $table->integer('tahun_ngajar');
             $table->longText('deskripsi');

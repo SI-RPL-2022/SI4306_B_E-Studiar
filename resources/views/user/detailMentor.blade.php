@@ -14,12 +14,13 @@
       <div class="deskripsi" style="padding-left: 24px; width: 500px">
         <div class="nama">
           <h1>{{ $detailMentor->nama }}</h1>
-          <h3 style="color: #FFBD07">{{ rupiah($bidang->tarif) }}</h3>
+          <h3 style="color: #FFBD07">{{ rupiah($bidang->tarif) }} / jam</h3>
 
           <hr style="height: 3px; width:100%">
 
-          <p>Mengajar Sejak : {{ $detailMentor->tahun_ngajar }}</p>
-          <p class="text-justify">Desripsi : {{ $detailMentor->deskripsi }}</p>
+          <h5>Mengajar Sejak : {{ $detailMentor->tahun_ngajar }} tahun</h5>
+          <p class="text-justify">
+          <h5>Deskripsi : </h5>{{ $detailMentor->deskripsi }}</p>
 
         </div>
       </div>

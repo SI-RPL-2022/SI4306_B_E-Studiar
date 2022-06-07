@@ -30,6 +30,12 @@
       <span>Data Mentor</span>
     </a>
   </li>
+  <li class="nav-item {{Request::is('admin/pembayaran*') ? 'active' : '' }}">
+    <a class="nav-link" href="/admin/pembayaran">
+      <i class="fa-solid fa-chalkboard-user"></i>
+      <span>Data Pembayaran</span>
+    </a>
+  </li>
 
   {{--
   <!-- Divider -->

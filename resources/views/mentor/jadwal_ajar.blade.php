@@ -25,6 +25,7 @@
               <th>Durasi</th>
               <th>Link</th>
               <th>Status</th>
+              <th>Status Bayar</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -36,6 +37,7 @@
               <th>Durasi</th>
               <th>Link</th>
               <th>Status</th>
+              <th>Status Bayar</th>
               <th>Aksi</th>
             </tr>
           </tfoot>
@@ -46,8 +48,9 @@
               <td>{{$data->nama}}</td>
               <td>{{date('d-m-y',strtotime($data->jadwal))}}, {{date('G:i',strtotime($data->jadwal))}}</td>
               <td>{{$data->durasi}} jam</td>
-              <td><a href="{{$data->link}}" target=”_blank”>{{$data->link}}</a></td>
+              <td><a href="{{$data->link}}" target=”_blank”>Klik disini</a></td>
               <td>{{$data->status}}</td>
+              <td>{{$data->status_bayar}}</td>
               <td>
                 <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm "
                   href="/mentor/jadwal-ajar/{{$data->id_jadwal}}">

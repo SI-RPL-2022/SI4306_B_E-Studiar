@@ -99,7 +99,24 @@ class mentorController extends Controller
             'status' => 'ditolak',
         ]);
 
-        return redirect('admin/calon-mentor')->with('success', 'Berhasil menolak akun mentor ' . $calon_mentors->nama);;
+        return redirect('admin/calon-mentor')->with('success', 'Berhasil menolak akun mentor ' . $calon_mentors->nama);
+    }
+
+    public function hapus_mentor($id)
+    {
+        Mentor::find($id)->delete();
+        alert()->success('Berhasil', 'Berhasil menghapus akun mentor');
+        return redirect('admin/mentor');
+    }
+
+    public function banned_mentor($id)
+    {
+        $mentor = Mentor::find($id);
+        $mentor->update([
+            'status' => 'Banned',
+        ]);
+        alert()->success('Berhasil', 'Berhasil banned akun mentor');
+        return redirect()->back();
     }
 
     /**

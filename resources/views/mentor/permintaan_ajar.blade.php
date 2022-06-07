@@ -78,7 +78,7 @@
                           class="fw-bold">{{$data->nama}}</span>?</p>
                       <hr>
                       <div class="mb-3">
-                        <label class="form-label">Email address</label>
+                        <label class="form-label">Link Meet</label>
                         <input type="text" name="link" class="form-control" placeholder="masukan link mentoring"
                           required>
                       </div>

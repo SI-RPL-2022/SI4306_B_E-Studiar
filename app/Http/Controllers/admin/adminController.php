@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 
 class adminController extends Controller
@@ -19,6 +20,30 @@ class adminController extends Controller
     public function index()
     {
         return view('admin.index');
+    }
+
+    public function data_pembayaran()
+    {
+        $pembayaran = Pembayaran::join('users', 'users.id', '=', 'pembayarans.id_user')->get(['pembayarans.*', 'users.nama as nama_user']);
+        return view('admin.pembayaran', compact('pembayaran'));
+    }
+
+    public function terima_pembayaran($id)
+    {
+        $bayar = Pembayaran::find($id);
+        $bayar->update([
+            'status' => 'Terverifikasi',
+        ]);
+        return redirect('/admin/pembayaran');
+    }
+
+    public function tolak_pembayaran($id)
+    {
+        $bayar = Pembayaran::find($id);
+        $bayar->update([
+            'status' => 'Ditolak',
+        ]);
+        return redirect('/admin/pembayaran');
     }
 
     /**
