@@ -182,6 +182,7 @@
       </div>
     </div>
   </div>
+  {{-- <script src="/assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script> --}}
 
   @include('sweetalert::alert')
 

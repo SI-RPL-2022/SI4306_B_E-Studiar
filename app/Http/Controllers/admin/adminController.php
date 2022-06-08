@@ -24,7 +24,7 @@ class adminController extends Controller
 
     public function data_pembayaran()
     {
-        $pembayaran = Pembayaran::join('users', 'users.id', '=', 'pembayarans.id_user')->get(['pembayarans.*', 'users.nama as nama_user']);
+        $pembayaran = Pembayaran::join('users', 'users.id', '=', 'pembayarans.id_user')->where('pembayarans.status', 'Menunggu Verifikasi')->get(['pembayarans.*', 'users.nama as nama_user']);
         return view('admin.pembayaran', compact('pembayaran'));
     }
 
