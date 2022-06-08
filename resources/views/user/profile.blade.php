@@ -16,8 +16,8 @@
         <div class="nama">
           {{-- <h1>{{ $users->nama }}</h1>
           <h3 style="color: #FFBD07">{{$users->email}}</h3> --}}
-          <h1>{{$detail->nama}}</h1>
-          <h3 style="color: #FFBD07">{{$detail->email}}</h3>
+          <h1>{{auth()->user()->nama}}</h1>
+          <h3 style="color: #FFBD07">{{auth()->user()->email}}</h3>
 
           {{--
           <hr style="height: 3px; width:100%"> --}}
