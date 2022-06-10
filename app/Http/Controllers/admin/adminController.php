@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 
+use LaravelDaily\LaravelCharts\Classes\LaravelChart;
+
 class adminController extends Controller
 {
     public function __construct()
@@ -19,7 +21,69 @@ class adminController extends Controller
      */
     public function index()
     {
-        return view('admin.index');
+        // $chart_options = [
+        //     'chart_title' => 'Transactions by dates',
+        //     'report_type' => 'group_by_date',
+        //     'model' => 'App\Models\Pembayaran',
+        //     'group_by_field' => 'created_at',
+        //     'group_by_period' => 'day',
+        //     'aggregate_function' => 'sum',
+        //     'aggregate_field' => 'amount',
+        //     'chart_type' => 'line',
+        // ];
+
+        $chart_options = [
+            'chart_title' => 'Bidang Ajar',
+            'report_type' => 'group_by_string',
+            'model' => 'App\Models\BidangAjar',
+            'group_by_field' => 'bidang',
+            'chart_type' => 'pie',
+            'filter_field' => 'created_at',
+            // 'filter_period' => 'month', // show users only registered this month
+        ];
+        $chart1 = new LaravelChart($chart_options);
+        // dd($chart1);
+
+        $chart_options = [
+            'chart_title' => 'Pendapatan',
+            'report_type' => 'group_by_date',
+            'model' => 'App\Models\Pembayaran',
+            'group_by_field' => 'created_at',
+            'group_by_period' => 'day',
+            'aggregate_function' => 'sum',
+            'aggregate_field' => 'total_bayar',
+            'chart_type' => 'line',
+        ];
+
+        $pendapatan = new LaravelChart($chart_options);
+
+        $chart_options = [
+            'chart_title' => 'Metode Bayar',
+            'report_type' => 'group_by_string',
+            'model' => 'App\Models\Pembayaran',
+            'group_by_field' => 'metode_bayar',
+            // 'group_by_period' => 'month',
+            'chart_type' => 'bar',
+            'filter_field' => 'created_at',
+            // 'filter_days' => 30, // show only last 30 days
+        ];
+
+        $chart3 = new LaravelChart($chart_options);
+
+        $chart_options = [
+            'chart_title' => 'Pendapatan',
+            'report_type' => 'group_by_date',
+            'model' => 'App\Models\Pembayaran',
+            'group_by_field' => 'created_at',
+            'group_by_period' => 'month',
+            'aggregate_function' => 'sum',
+            'aggregate_field' => 'total_bayar',
+            'chart_type' => 'line',
+        ];
+
+        // $pendapatan = new LaravelChart($chart_options);
+
+        return view('admin.index', compact('chart1', 'pendapatan', 'chart3'));
     }
 
     public function data_pembayaran()

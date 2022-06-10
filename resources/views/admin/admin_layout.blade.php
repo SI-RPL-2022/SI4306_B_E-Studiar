@@ -213,6 +213,8 @@
   <!-- Page level custom scripts -->
   <script src="/assets/admin/js/demo/datatables-demo.js"></script>
 
+  @yield('javascript')
+
 </body>
 
 </html>

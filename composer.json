@@ -15,6 +15,7 @@
         "laravel/helpers": "^1.5",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "laraveldaily/laravel-charts": "^0.1.29",
         "maddhatter/laravel-fullcalendar": "*",
         "nicolaslopezj/searchable": "^1.13",
         "realrashid/sweet-alert": "^5.0"
