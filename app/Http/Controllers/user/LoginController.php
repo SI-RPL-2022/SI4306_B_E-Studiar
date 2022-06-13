@@ -28,6 +28,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            toast('Login berhasil, Selamat datang kembali!', 'success', 'top-right');
             return redirect()->intended('/');
         }
 

@@ -34,9 +34,9 @@ class adminLogin extends Controller
 
         if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
+            toast('Login berhasil, Selamat datang kembali!', 'success', 'top-right');
             return redirect()->intended('/admin');
         }
-
         return back()->withErrors($credentials);
     }
 

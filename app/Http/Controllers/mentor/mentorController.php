@@ -107,6 +107,7 @@ class mentorController extends Controller
             $pembayaran = new Pembayaran();
             $pembayaran->id = generateNoTransaksi();
             $pembayaran->id_mentor = $jadwal_ajar->id_mentor;
+            $pembayaran->id_jadwal = $jadwal_ajar->id;
             $pembayaran->id_user = $permintaan_ajar['id_pelajar'];
             $pembayaran->total_bayar = $total_bayar;
             $pembayaran->save();

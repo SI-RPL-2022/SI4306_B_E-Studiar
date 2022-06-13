@@ -46,6 +46,8 @@ Route::post('/pencarianguru/filter', [MainController::class, 'filter_guru']);
 Route::post('/permintaan/ajar', [PermintaanController::class, 'permintaan_ajar']);
 
 // ADMIN ROUTES
+Route::get('admin/login', [adminLogin::class, 'login']);
+Route::post('admin/login', [adminLogin::class, 'authenticate']);
 // ['middleware' => ['role:admin']]
 Route::middleware('auth:admin')->group(function () {
     Route::get('admin', [adminController::class, 'index']);
@@ -55,7 +57,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('admin/calon-mentor/{id}/terima', [mentorController::class, 'terima_mentor']);
     Route::post('admin/calon-mentor/{id}/tolak', [mentorController::class, 'tolak_mentor']);
     Route::get('admin/mentor', [mentorController::class, 'index']);
-    Route::post('admin/logout', [adminLogin::class, 'logout']);
+
     Route::get('admin/mentor', [mentorController::class, 'data_mentor']);
     Route::get('admin/mentor/{id}/detail', [mentorController::class, 'detail_mentor']);
 
@@ -66,13 +68,10 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('admin/mentor/{id}/banned', [mentorController::class, 'banned_mentor']);
     Route::get('admin/mentor/{id}/hapus', [mentorController::class, 'hapus_mentor']);
 
-
-
     Route::get('admin/logout', [adminLogin::class, 'logout']);
 });
 
-Route::get('admin/login', [adminLogin::class, 'login'])->name('admin.login');
-Route::post('admin/login', [adminLogin::class, 'authenticate']);
+
 
 
 Route::get('user/register', [RegisterController::class, 'index']);

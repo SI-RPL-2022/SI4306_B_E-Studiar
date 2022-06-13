@@ -17,6 +17,7 @@ class CreatePembayaransTable extends Migration
             $table->bigInteger('id')->unsigned()->primary();
             $table->bigInteger('id_mentor')->unsigned()->index()->nullable();
             $table->bigInteger('id_user')->unsigned()->index()->nullable();
+            $table->bigInteger('id_jadwal')->unsigned()->index()->nullable();
             $table->string('status')->default('Belum bayar');
             $table->string('total_bayar');
             $table->string('tgl_bayar')->nullable();

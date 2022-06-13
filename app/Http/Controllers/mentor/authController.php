@@ -105,6 +105,7 @@ class authController extends Controller
                 alert()->error('Gagal Login', 'Akun anda telah dibanned, silakan hubungi administrator');
                 return redirect()->back();
             }
+            toast('Login berhasil, Selamat datang kembali!', 'success', 'top-right');
             $request->session()->regenerate();
             return redirect()->intended('/mentor');
         }

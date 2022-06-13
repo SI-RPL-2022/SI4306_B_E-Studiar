@@ -113,6 +113,8 @@ class adminController extends Controller
         $bayar->update([
             'status' => 'Terverifikasi',
         ]);
+
+        alert()->success('Verifikasi Berhasil', 'Berhasil memverifikasi transaksi pembayaran');
         return redirect('/admin/pembayaran');
     }
 
@@ -122,6 +124,7 @@ class adminController extends Controller
         $bayar->update([
             'status' => 'Ditolak',
         ]);
+        alert()->success('Verifikasi Berhasil', 'Berhasil menolak transaksi pembayaran');
         return redirect('/admin/pembayaran');
     }
 
