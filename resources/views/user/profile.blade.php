@@ -28,6 +28,97 @@
         </div>
         <hr>
         <div class="card shadow py-2">
+          <h5 class="ps-3 pt-3">Permintaan Ajar (Pending)</h5>
+          <small class="ps-3 pb-3">* Belum / tidak di acc oleh mentor</small>
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Mentor</th>
+                <th scope="col">Status</th>
+                <th scope="col">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($permintaan as $item)
+              <tr>
+                <th scope="row">{{$loop->iteration}}</th>
+                <td>
+                  {{$item->nama_mentor}}
+                  {{-- {{date('d-m-y',strtotime($item->created_at))}}, {{date('G:i',strtotime($item->created_at))}} --}}
+                </td>
+                <td>{{$item->status}}</td>
+                <td>
+                  <a class="btn btn-warning btn-sm" href="#" data-bs-toggle="modal"
+                    data-bs-target="#detail{{$item->id}}">Detail</a>
+                </td>
+              </tr>
+              <!-- Modal Detail -->
+              <div class="modal fade" id="detail{{$item->id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Detail Permintaan</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                      <div class="row">
+                        <div class="col-3">
+                          <h6>Status</h6>
+                        </div>
+                        <div class="col-9">
+                          <p style="font-size: 14px">: {{$item->status}}</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-3">
+                          <h6>Mentor</h6>
+                        </div>
+                        <div class="col-9">
+                          <p style="font-size: 14px">: {{$item->nama_mentor}} | {{$item->mentor_email}}</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-3">
+                          <h6>Alasan</h6>
+                        </div>
+                        <div class="col-9">
+                          <textarea disabled id="" cols="13" class="form-control mb-2"
+                            style="font-size: 12px; padding: 4px;">{{$item->note}}</textarea>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-3">
+                          <h6>Tanggal Permintaan</h6>
+                        </div>
+                        <div class="col-9">
+                          <p style="font-size: 14px">: {{date('D, d-m-Y',strtotime($item->created_at))}}, Pukul
+                            {{date('G:i',strtotime($item->created_at))}}</>
+                        </div>
+                      </div>
+                      {{-- <p>Apakah anda yakin akan menolak permintaan ajar dari pelajar <span
+                          class="fw-bold">{{$data->nama}}</span></p>
+                      <div class="mb-3">
+                        <label class="form-label">Note</label>
+                        <textarea class="form-control" name="note" rows="3" required></textarea>
+                      </div> --}}
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" data-bs-dismiss="modal"
+                        class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm me-2 fw-bold">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {{-- --}}
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+        <hr>
+        <div class="card shadow py-2">
           <h5 class="p-3">History Permintaan Ajar</h5>
           <table class="table table-striped table-hover">
             <thead>

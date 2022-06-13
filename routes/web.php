@@ -49,6 +49,7 @@ Route::post('/permintaan/ajar', [PermintaanController::class, 'permintaan_ajar']
 // ['middleware' => ['role:admin']]
 Route::middleware('auth:admin')->group(function () {
     Route::get('admin', [adminController::class, 'index']);
+    Route::post('admin/{filter}', [adminController::class, 'index']);
     Route::get('admin/calon-mentor', [mentorController::class, 'calon_mentor']);
     Route::get('admin/calon-mentor/{id}/detail', [mentorController::class, 'detail_calon_mentor']);
     Route::post('admin/calon-mentor/{id}/terima', [mentorController::class, 'terima_mentor']);

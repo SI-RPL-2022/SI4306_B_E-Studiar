@@ -114,6 +114,10 @@
                     <div class="modal-body">
                       <p>Apakah anda yakin akan menolak permintaan ajar dari pelajar <span
                           class="fw-bold">{{$data->nama}}</span></p>
+                      <div class="mb-3">
+                        <label class="form-label">Note</label>
+                        <textarea class="form-control" name="note" rows="3" required></textarea>
+                      </div>
                     </div>
                     <div class="modal-footer">
                       <button type="submit"

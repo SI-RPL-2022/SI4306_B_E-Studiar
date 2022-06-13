@@ -90,6 +90,10 @@ class authController extends Controller
 
     public function authenticate(Request $request)
     {
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+
         $credentials = $request->validate([
             'email' => ['required', 'email:dns'],
             'password' => ['required']

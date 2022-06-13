@@ -5,7 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Pembayaran;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
 class adminController extends Controller
@@ -19,18 +19,10 @@ class adminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, $filter = null)
     {
-        // $chart_options = [
-        //     'chart_title' => 'Transactions by dates',
-        //     'report_type' => 'group_by_date',
-        //     'model' => 'App\Models\Pembayaran',
-        //     'group_by_field' => 'created_at',
-        //     'group_by_period' => 'day',
-        //     'aggregate_function' => 'sum',
-        //     'aggregate_field' => 'amount',
-        //     'chart_type' => 'line',
-        // ];
+        // dd($chartType);
+        // $filterData = $request->filter == '*';
 
         $chart_options = [
             'chart_title' => 'Bidang Ajar',
@@ -41,6 +33,9 @@ class adminController extends Controller
             'filter_field' => 'created_at',
             // 'filter_period' => 'month', // show users only registered this month
         ];
+        if ($filter != null and $request->filter != '*' and $filter != 'filterPendapatan') {
+            $chart_options['filter_days'] = (int)$request->filter;
+        }
         $chart1 = new LaravelChart($chart_options);
         // dd($chart1);
 
@@ -49,12 +44,15 @@ class adminController extends Controller
             'report_type' => 'group_by_date',
             'model' => 'App\Models\Pembayaran',
             'group_by_field' => 'created_at',
-            'group_by_period' => 'day',
             'aggregate_function' => 'sum',
             'aggregate_field' => 'total_bayar',
             'chart_type' => 'line',
         ];
-
+        if ($request->filterPendapatan != null and $filter == 'filterPendapatan') {
+            $chart_options['group_by_period'] = $request->filterPendapatan;
+        } else {
+            $chart_options['group_by_period'] = 'day';
+        }
         $pendapatan = new LaravelChart($chart_options);
 
         $chart_options = [
@@ -65,25 +63,42 @@ class adminController extends Controller
             // 'group_by_period' => 'month',
             'chart_type' => 'bar',
             'filter_field' => 'created_at',
-            // 'filter_days' => 30, // show only last 30 days
         ];
-
+        if ($filter != null and $request->filter != '*' and $filter != 'filterPendapatan') {
+            $chart_options['filter_days'] = (int)$request->filter;
+        }
         $chart3 = new LaravelChart($chart_options);
 
-        $chart_options = [
-            'chart_title' => 'Pendapatan',
-            'report_type' => 'group_by_date',
-            'model' => 'App\Models\Pembayaran',
-            'group_by_field' => 'created_at',
-            'group_by_period' => 'month',
-            'aggregate_function' => 'sum',
-            'aggregate_field' => 'total_bayar',
-            'chart_type' => 'line',
-        ];
+        $total_mentor = DB::table('mentors')->count();
+        $total_murid = DB::table('users')->count();
+        $total_pendapatan = DB::table('pembayarans')->where('status', 'Terverifikasi')->sum('total_bayar');
+        $total_transaksi = DB::table('pembayarans')->where('status', 'Terverifikasi')->count();
 
-        // $pendapatan = new LaravelChart($chart_options);
+        if ($filter == 'filter' and $request->filter != '*') {
+            $total_mentor = DB::table('mentors')->where('created_at', '>', now()->subDays((int)$request->filter)->endOfDay())->count();
+            $total_murid = DB::table('users')->where('created_at', '>', now()->subDays((int)$request->filter)->endOfDay())->count();
+            $total_pendapatan = DB::table('pembayarans')->where('status', 'Terverifikasi')->where('created_at', '>', now()->subDays((int)$request->filter)->endOfDay())->sum('total_bayar');
+            $total_transaksi = DB::table('pembayarans')->where('status', 'Terverifikasi')->where('created_at', '>', now()->subDays((int)$request->filter)->endOfDay())->count();
+        }
 
-        return view('admin.index', compact('chart1', 'pendapatan', 'chart3'));
+        $filterValue = 0;
+        if ((int)$request->filter <= 30) {
+            $filterValue = $request->filter . ' hari terakhir';
+        }
+        if ((int)$request->filter > 30) {
+            $filterValue = (int)$request->filter / 30 . ' bulan terakhir';
+        }
+        if ((int)$request->filter == '*') {
+            $filterValue = 'Semua Waktu';
+        }
+
+        $filterPendapatan = null;
+        if ($request->filterPendapatan == 'month') $filterPendapatan = 'Perbulan';
+        if ($request->filterPendapatan == 'day') $filterPendapatan = 'Perhari';
+        if ($request->filterPendapatan == 'year') $filterPendapatan = 'Pertahun';
+
+        $filter = is_numeric($request->filter) ? $filterValue : null;
+        return view('admin.index', compact('chart1', 'pendapatan', 'chart3', 'total_transaksi', 'total_pendapatan', 'total_murid', 'total_mentor', 'filter', 'filterPendapatan'));
     }
 
     public function data_pembayaran()

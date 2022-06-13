@@ -117,11 +117,12 @@ class mentorController extends Controller
         return redirect('mentor/permintaan-ajar');
     }
 
-    public function tolak_permintaan_ajar($id)
+    public function tolak_permintaan_ajar($id, Request $request)
     {
         $permintaan_ajar = PermintaanAjar::find($id);
         $permintaan_ajar->update([
             'status' => 'ditolak',
+            'note' => $request->note,
         ]);
 
         alert()->success('Permintaan Berhasil', 'Berhasil menerima menolak ajar');
