@@ -30,6 +30,12 @@
       <span>Jadwal Ajar</span>
     </a>
   </li>
+  <li class="nav-item {{Request::is('mentor/feedback') ? 'active' : '' }}">
+    <a class="nav-link" href="/mentor/feedback">
+      <i class="fa-solid fa-chalkboard-user"></i>
+      <span>Feedback</span>
+    </a>
+  </li>
   {{-- <li class="nav-item {{Request::is('admin/mentor*') ? 'active' : '' }}">
     <a class="nav-link" href="/admin/mentor">
       <i class="fa-solid fa-chalkboard-user"></i>

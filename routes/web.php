@@ -102,6 +102,7 @@ Route::middleware('auth:mentor')->group(function () {
 
     Route::get('mentor/jadwal-ajar/calendar', [ControllerMentor::class, 'jadwal_ajar_calendar']);
     Route::get('mentor/jadwal-ajar', [ControllerMentor::class, 'jadwal_ajar']);
+    Route::get('mentor/feedback', [ControllerMentor::class, 'feedback']);
     Route::get('mentor/jadwal-ajar/{id}', [ControllerMentor::class, 'detail_jadwal_ajar']);
     Route::post('mentor/jadwal-ajar/{id}/update', [ControllerMentor::class, 'update_jadwal_ajar']);
 
@@ -113,3 +114,8 @@ Route::post('mentor/login', [authController::class, 'authenticate']);
 Route::get('mentor/registrasi', [authController::class, 'registrasi']);
 Route::post('mentor/store_registrasi', [authController::class, 'store_registrasi']);
 Route::post('mentor/registrasi/pilih_bidang', [authController::class, 'pilih_bidang']);
+Route::get('/feedback', function () {
+    return view('mentor.feedback', [
+        'title' => 'feedback'
+    ]);
+});

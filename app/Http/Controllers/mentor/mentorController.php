@@ -25,6 +25,10 @@ class mentorController extends Controller
     {
         return view('mentor/dashboard');
     }
+    public function feedback()
+    {
+        return view('mentor/feedback');
+    }
 
     public function jadwal_ajar()
     {
