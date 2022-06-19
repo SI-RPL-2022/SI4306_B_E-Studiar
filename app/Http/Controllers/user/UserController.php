@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\Feedback;
 use App\Models\JadwalAjar;
 use App\Models\Pembayaran;
 use App\Models\PermintaanAjar;
@@ -51,15 +52,6 @@ class UserController extends Controller
 
     public function upload_bukti_bayar($id, Request $request)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'bukti' => 'required',
-        // ]);
-
-        // if ($validator->fails()) {
-        //     toast('Upload bukti pembayaran!', 'error', 'top-right');
-        //     return view('user/bayar_transaksi', compact('pembayaran'));
-        // }
-        // dd('');
         $pembayaran = Pembayaran::find($id);
         $imgName = $request->gambar;
         if ($request->gambar) {
@@ -76,5 +68,19 @@ class UserController extends Controller
 
         alert()->success('Upload Bukti Berhasil', 'Bukti bayar anda akan dikonfirmasi oleh admin');
         return redirect('user/profile/' . $pembayaran->id_user);
+    }
+
+    public function input_feedback($id, Request $request)
+    {
+        $feedback = new Feedback();
+        $feedback->id_pelajar = auth()->user()->id;
+        $feedback->id_mentor = $id;
+        $feedback->rating = $request->ratingValue;
+        $feedback->feedback = $request->feedback;
+        $feedback->nama_pelajar = auth()->user()->nama;
+        $feedback->save();
+
+        alert()->success('Success', 'Berhasil input feedback');
+        return redirect()->back();
     }
 }

@@ -1,10 +1,59 @@
 @extends('layout_login')
 
+<style>
+  .rating {
+    float: left;
+    border: none;
+  }
+
+  .rating:not(:checked)>input {
+    position: absolute;
+    top: -9999px;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .rating:not(:checked)>label {
+    float: right;
+    width: 1em;
+    padding: 0 .1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 200%;
+    line-height: 1.2;
+    color: #ddd;
+  }
+
+  .rating:not(:checked)>label:before {
+    content: '★ ';
+  }
+
+  .rating>input:checked~label {
+    color: #f70;
+  }
+
+  .rating:not(:checked)>label:hover,
+  .rating:not(:checked)>label:hover~label {
+    color: gold;
+  }
+
+  .rating>input:checked+label:hover,
+  .rating>input:checked+label:hover~label,
+  .rating>input:checked~label:hover,
+  .rating>input:checked~label:hover~label,
+  .rating>label:hover~input:checked~label {
+    color: #ea0;
+  }
+
+  .rating>label:active {
+    position: relative;
+  }
+</style>
 
 @section('content')
 {{-- @foreach ($detailMentor as $m) --}}
-<div class="container">
-  <div class="content-mentor row flex-row justify-content-between" style="margin-top: 24px">
+<div class="container  mb-5">
+  <div class="content-mentor  mb-5 row flex-row justify-content-between" style="margin-top: 24px">
 
     <div class="container-dalam d-flex flex-row col-5">
 
@@ -194,9 +243,9 @@
               pembayaran
               dahulu</span>
             @endif
-
           </h6>
         </div>
+
         <hr>
         <form action="/transaksi/{{$detail->id}}/bayar" method="post">
           @csrf
@@ -225,11 +274,140 @@
             href="/transaksi/{{$detail->id}}/bayar">{{$detail->status == 'Terverifikasi' ? 'Sudah bayar & terverifikasi'
             : 'Bayar Sekarang'}}</button>
         </form>
+        <hr>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#beriFeedback" class="text-warning">Klik disini untuk
+          memberikan rating / feedback terhadap mentor</a>
+        {{-- <button class="btn col-12 btn-warning btn-sm mt-3">Beri feedback</button> --}}
+
+        <div class="modal fade" id="beriFeedback" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Beri Feedback atau rating</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form action="/feedback/input/{{$detail->id_mentor}}" method="POST">
+                @csrf
+                <div class="modal-body">
+                  <div class="mb-3 d-flex align-items-center ">
+                    {{-- <div id="choice"></div> --}}
+                    <label class="form-label me-3">Rating</label>
+                    <fieldset class="rating">
+                      <input type="radio" id="star5" name="rating" value="5" />
+                      <label for="star5">5 stars</label>
+                      <input type="radio" id="star4" name="rating" value="4" />
+                      <label for="star4">4 stars</label>
+                      <input type="radio" id="star3" name="rating" value="3" />
+                      <label for="star3">3 stars</label>
+                      <input type="radio" id="star2" name="rating" value="2" />
+                      <label for="star2">2 stars</label>
+                      <input type="radio" id="star1" name="rating" value="1" />
+                      <label for="star1">1 star</label>
+                    </fieldset>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Feedback</label>
+                    <input type="hidden" id="ratingValue" name="ratingValue">
+                    <textarea class="form-control" name="feedback" required rows="3"
+                      placeholder="Masukan feedback anda untuk mentor disini"></textarea>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit"
+                    class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm me-2 fw-bold">Submit</button>
+                  <button type="button" data-bs-dismiss="modal"
+                    class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm fw-bold">Close</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
         @endif
       </div>
     </div>
 
   </div>
 </div>
+
+{{-- --}}
+
+
+<!-- ============================================-->
+<!-- <section> begin ============================-->
+<section class="pb-2 pb-lg-5">
+
+  <div class="container">
+    <div class="row border-top border-top-secondary pt-7">
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-6 mb-lg-0 mb-sm-2 order-1 order-md-1 order-lg-1"><img class="mb-4"
+          src="https://i.ibb.co/6yTVSfP/image-1.png" width="184" alt="" /></div>
+      <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 order-3 order-md-3 order-lg-2">
+        <p class="fs-2 mb-lg-4">Quick Links</p>
+        <ul class="list-unstyled mb-0">
+          <li class="mb-1"><a class="link-900 text-secondary text-decoration-none" href="#!">About us</a></li>
+          <li class="mb-1"><a class="link-900 text-secondary text-decoration-none" href="#!">Blog</a></li>
+          <li class="mb-1"><a class="link-900 text-secondary text-decoration-none" href="#!">Contact</a></li>
+          <li class="mb-1"><a class="link-900 text-secondary text-decoration-none" href="#!">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 order-4 order-md-4 order-lg-3">
+        <p class="fs-2 mb-lg-4">Legal stuff</p>
+        <ul class="list-unstyled mb-0">
+          <li class="mb-1"><a class="link-900 text-secondary text-decoration-none" href="#!">Disclaimer</a></li>
+          <li class="mb-1"><a class="link-900 text-secondary text-decoration-none" href="#!">Financing</a></li>
+          <li class="mb-1"><a class="link-900 text-secondary text-decoration-none" href="#!">Privacy Policy</a></li>
+          <li class="mb-1"><a class="link-900 text-secondary text-decoration-none" href="#!">Terms of Service</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6 col-6 mb-4 mb-lg-0 order-2 order-md-2 order-lg-4">
+        <p class="fs-2 mb-lg-4">
+          Ingin dapat info menarik dari kami</p>
+        <form class="mb-3">
+          <input class="form-control" type="email" placeholder="Email" aria-label="phone" />
+        </form>
+        <button class="btn btn-warning fw-medium py-1">Langganan Sekarang</button>
+      </div>
+    </div>
+  </div><!-- end of .container-->
+
+</section>
+<!-- <section> close ============================-->
+<!-- ============================================-->
+
+
+
+
+<!-- ============================================-->
+<!-- <section> begin ============================-->
+<section class="text-center py-0">
+
+  <div class="container">
+    <div class="container border-top py-3">
+      <div class="row justify-content-between">
+        <div class="col-12 col-md-auto mb-1 mb-md-0">
+          <p class="mb-0">&copy; 2022 Estudiar</p>
+        </div>
+
+      </div>
+    </div>
+  </div><!-- end of .container-->
+
+</section>
+<!-- <section> close ============================-->
+<!-- ============================================-->
+{{-- --}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+  window.onload = function(){
+    $('.rating input').change(
+      function() {
+        const ratingValue = document.getElementById('ratingValue');
+        $('#choice').text(this.value);
+        ratingValue.value = this.value
+      }
+    )
+  }
+</script>
+
 {{-- @endforeach --}}
 @endsection

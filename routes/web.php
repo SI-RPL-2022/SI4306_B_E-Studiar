@@ -67,12 +67,8 @@ Route::middleware('auth:admin')->group(function () {
 
     Route::get('admin/mentor/{id}/banned', [mentorController::class, 'banned_mentor']);
     Route::get('admin/mentor/{id}/hapus', [mentorController::class, 'hapus_mentor']);
-
-    Route::get('admin/logout', [adminLogin::class, 'logout']);
 });
-
-
-
+Route::get('admin/logout', [adminLogin::class, 'logout']);
 
 Route::get('user/register', [RegisterController::class, 'index']);
 Route::post('user/register', [RegisterController::class, 'store']);
@@ -91,6 +87,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('transaksi/{id}/bayar', [UserController::class, 'bayar_transaksi']);
     Route::post('transaksi/{id}/upload-bukti', [UserController::class, 'upload_bukti_bayar']);
+
+    // Input Feedback
+    Route::post('feedback/input/{id}', [UserController::class, 'input_feedback']);
 });
 
 Route::middleware('auth:mentor')->group(function () {
