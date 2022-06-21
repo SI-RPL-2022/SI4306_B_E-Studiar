@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class authController extends Controller
@@ -40,6 +41,20 @@ class authController extends Controller
 
     public function pilih_bidang(Request $request)
     {
+        $validator = Validator::make(
+            array(
+                'email' => $request->email
+            ),
+            array(
+                'email' => 'required|email|unique:mentors'
+            )
+        );
+
+        if ($validator->fails()) {
+            alert()->error('Registrasi Gagal', 'Alamat email tersebut sudah digunakan!');
+            return redirect()->back();
+        }
+
         $ID = generateMentorID();
         $calonMentor = array("id" => $ID, "nama" => $request->nama, "email" => $request->email, "tgl_lahir" => $request->tgl_lahir, "tahun_ngajar" => $request->tahun_ngajar, "deskripsi" => $request->deskripsi);
         Session::put('calonMentorTemporary', $calonMentor);
@@ -109,7 +124,7 @@ class authController extends Controller
             $request->session()->regenerate();
             return redirect()->intended('/mentor');
         }
-
+        toast('Login gagal, pastikan email & password tepat!', 'error', 'top-right');
         return back()->withErrors($credentials);
     }
 

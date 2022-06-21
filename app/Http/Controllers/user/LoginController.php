@@ -31,7 +31,7 @@ class LoginController extends Controller
             toast('Login berhasil, Selamat datang kembali!', 'success', 'top-right');
             return redirect()->intended('/');
         }
-
+        toast('Login gagal, pastikan email & password tepat!', 'error', 'top-right');
         return back()->with('loginError', 'Login failed');
     }
 

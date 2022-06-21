@@ -56,18 +56,28 @@ class mentorController extends Controller
     public function detail_mentor($id)
     {
         // $count = DB::table('hospitals')->count();
-        $mentors = Mentor::find($id);
-        $bidang = BidangAjar::orderBy('bidang')->where('id_mentor', $mentors->id)->get();
-        $page = 'Data Mentor | ' . $mentors->nama;
-        return view('admin.mentor.detail_mentor', compact('mentors', 'page', 'bidang'));
+        try {
+            $mentors = Mentor::findOrFail($id);
+            $bidang = BidangAjar::orderBy('bidang')->where('id_mentor', $mentors->id)->get();
+            $page = 'Data Mentor | ' . $mentors->nama;
+            return view('admin.mentor.detail_mentor', compact('mentors', 'page', 'bidang'));
+        } catch (\Throwable $th) {
+            toast('Error! Mentor ID tidak ditemukan', 'error', 'top-right');
+            return redirect()->back();
+        }
     }
     public function detail_calon_mentor($id)
     {
         // $count = DB::table('hospitals')->count();
-        $calon_mentors = CalonMentor::find($id);
-        $bidang = BidangAjar::orderBy('bidang')->where('id_mentor', $calon_mentors->id)->get();
-        $page = 'Data Calon Mentor | ' . $calon_mentors->nama;
-        return view('admin.calon_mentor.detail_calon_mentor', compact('calon_mentors', 'page', 'bidang'));
+        try {
+            $calon_mentors = CalonMentor::findOrFail($id);
+            $bidang = BidangAjar::orderBy('bidang')->where('id_mentor', $calon_mentors->id)->get();
+            $page = 'Data Calon Mentor | ' . $calon_mentors->nama;
+            return view('admin.calon_mentor.detail_calon_mentor', compact('calon_mentors', 'page', 'bidang'));
+        } catch (\Throwable $th) {
+            toast('Error! Calon Mentor ID tidak ditemukan', 'error', 'top-right');
+            return redirect()->back();
+        }
     }
 
     public function terima_mentor($id)

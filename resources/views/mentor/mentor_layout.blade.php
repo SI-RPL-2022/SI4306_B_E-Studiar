@@ -121,7 +121,10 @@
                   Activity Log
                 </a>
                 <div class="dropdown-divider"></div> --}}
-
+                <a class="dropdown-item" href="/mentor/profile/{{auth()->user()->id}}">
+                  <i class="fas fa-user-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Profile
+                </a>
                 <a class="dropdown-item" href="/admin/logout">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
@@ -216,6 +219,7 @@
 
   <!-- Page level custom scripts -->
   <script src="/assets/admin/js/demo/datatables-demo.js"></script>
+  @yield('javascript')
 
 
 </body>

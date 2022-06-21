@@ -70,6 +70,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('admin/mentor/{id}/banned', [mentorController::class, 'banned_mentor']);
     Route::get('admin/mentor/{id}/hapus', [mentorController::class, 'hapus_mentor']);
 });
+
 Route::get('admin/logout', [adminLogin::class, 'logout']);
 
 Route::get('user/register', [RegisterController::class, 'index']);
@@ -94,9 +95,20 @@ Route::middleware('auth')->group(function () {
     Route::post('feedback/input/{id}', [UserController::class, 'input_feedback']);
 });
 
+Route::post('mentor/login', [authController::class, 'authenticate']);
+Route::get('mentor/login', [authController::class, 'login'])->name('mentor.login');
+Route::get('mentor/registrasi', [authController::class, 'registrasi']);
+Route::post('mentor/store_registrasi', [authController::class, 'store_registrasi']);
+Route::post('mentor/registrasi/pilih_bidang', [authController::class, 'pilih_bidang']);
+
 Route::middleware('auth:mentor')->group(function () {
     Route::get('mentor', [ControllerMentor::class, 'index']);
 
+    Route::get('mentor/profile/{id}', [ControllerMentor::class, 'show']);
+    Route::post('mentor/profile/{id}', [ControllerMentor::class, 'edit']);
+    Route::post('mentor/ubah-password', [ControllerMentor::class, 'update_password']);
+
+    Route::post('mentor/{filter}', [ControllerMentor::class, 'index']);
     // permintaan Ajar
     Route::get('mentor/permintaan-ajar', [ControllerMentor::class, 'permintaan_ajar']);
     Route::post('mentor/permintaan-ajar/{id}/terima', [ControllerMentor::class, 'terima_permintaan_ajar']);
@@ -104,20 +116,11 @@ Route::middleware('auth:mentor')->group(function () {
 
     Route::get('mentor/jadwal-ajar/calendar', [ControllerMentor::class, 'jadwal_ajar_calendar']);
     Route::get('mentor/jadwal-ajar', [ControllerMentor::class, 'jadwal_ajar']);
-    Route::get('mentor/feedback', [ControllerMentor::class, 'feedback']);
+
     Route::get('mentor/jadwal-ajar/{id}', [ControllerMentor::class, 'detail_jadwal_ajar']);
     Route::post('mentor/jadwal-ajar/{id}/update', [ControllerMentor::class, 'update_jadwal_ajar']);
 
-    Route::post('admin/logout', [authController::class, 'logout']);
-});
+    Route::get('mentor/feedback', [ControllerMentor::class, 'show_feedback']);
 
-Route::get('mentor/login', [authController::class, 'login'])->name('mentor.login');;
-Route::post('mentor/login', [authController::class, 'authenticate']);
-Route::get('mentor/registrasi', [authController::class, 'registrasi']);
-Route::post('mentor/store_registrasi', [authController::class, 'store_registrasi']);
-Route::post('mentor/registrasi/pilih_bidang', [authController::class, 'pilih_bidang']);
-Route::get('/feedback', function () {
-    return view('mentor.feedback', [
-        'title' => 'feedback'
-    ]);
+    Route::post('admin/logout', [authController::class, 'logout']);
 });

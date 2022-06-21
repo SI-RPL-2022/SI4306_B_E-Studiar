@@ -25,7 +25,7 @@
     <div class="card-body">
       <div class="row justify-content-between">
         <div class="col-3 d-flex justify-content-center">
-          <img src="/img/{{$mentors->gambar}}" height="250px" width="200px" alt="" srcset=""
+          <img src="/img/mentor/{{$mentors->gambar}}" height="250px" width="200px" alt="" srcset=""
             style="border-radius: 16px">
         </div>
         <div class="col-4">

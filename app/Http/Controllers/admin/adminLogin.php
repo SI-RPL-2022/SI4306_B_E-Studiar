@@ -37,6 +37,7 @@ class adminLogin extends Controller
             toast('Login berhasil, Selamat datang kembali!', 'success', 'top-right');
             return redirect()->intended('/admin');
         }
+        toast('Login gagal, pastikan email & password tepat!', 'error', 'top-right');
         return back()->withErrors($credentials);
     }
 

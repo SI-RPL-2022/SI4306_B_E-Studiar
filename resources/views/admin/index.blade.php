@@ -71,12 +71,7 @@
               <div class="col-auto">
                 <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{$total_mentor}}</div>
               </div>
-              <div class="col">
-                <div class="progress progress-sm mr-2">
-                  <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50"
-                    aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
+
             </div>
           </div>
           <div class="col-auto">
@@ -113,21 +108,6 @@
       <!-- Card Header - Dropdown -->
       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <h6 class="m-0 font-weight-bold text-primary">{{ $chart3->options['chart_title'] }}</h6>
-
-
-        {{-- <div class="dropdown no-arrow">
-          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-            <div class="dropdown-header">Dropdown Header:</div>
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div> --}}
       </div>
       <!-- Card Body -->
       <div class="card-body">
@@ -145,19 +125,6 @@
       <!-- Card Header - Dropdown -->
       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <h6 class="m-0 font-weight-bold text-primary">{{ $chart1->options['chart_title'] }}</h6>
-        <div class="dropdown no-arrow">
-          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-            <div class="dropdown-header">Dropdown Header:</div>
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
       </div>
       <div class="card-body">
         {!! $chart1->renderHtml() !!}
@@ -171,18 +138,9 @@
 </div>
 
 
-{{-- <h1>{{ $chart1->options['chart_title'] }}</h1>
-{!! $chart1->renderHtml() !!}
-
-<h1>{{ $chart2->options['chart_title'] }}</h1>
-{!! $chart2->renderHtml() !!}
-
-<h1>{{ $chart3->options['chart_title'] }}</h1>
-{!! $chart3->renderHtml() !!} --}}
-
 <div class="row">
   {{-- Start --}}
-  <div class="col-xl-8 col-lg-7">
+  <div class="col-xl-7 col-lg-6">
     <div class="card shadow mb-4">
       <!-- Card Header - Dropdown -->
       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -208,25 +166,48 @@
     </div>
   </div>
 
-  <div class="col-xl-4 col-lg-5">
+
+  {{-- END --}}
+  <!-- Bidang Ajar -->
+  <div class="col-xl-5 col-lg-6">
     <div class="card shadow mb-4">
       <!-- Card Header - Dropdown -->
       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-        <h6 class="m-0 font-weight-bold text-primary">Transaksi</h6>
-        <div class="dropdown no-arrow">
-          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-            <div class="dropdown-header">Dropdown Header:</div>
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
+        <h6 class="m-0 font-weight-bold text-primary">{{ $mentorLaku['chart_title'] }}</h6>
+
       </div>
+      <div class="card-body">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Nama</th>
+              <th scope="col">Peminat</th>
+              <th scope="col">Pendapatan</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($mentorLaku['data'] as $item)
+            <tr>
+              <td><a class="fw-bold" style="color: rgb(117, 117, 117)"
+                  href="/admin/mentor/{{$item->id_mentor}}/detail">{{$item->nama}}</a>
+              </td>
+              <td class="text-center">
+                {{-- <span class="badge bg-info">{{$item->total}}</span> --}}
+                {{$item->total}}
+              </td>
+              <td class="text-center">
+                <span class="badge bg-success">{{rupiah($item->totalPendapatan)}}</span>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-12 col-lg-12">
+    <div class="card shadow mb-4">
+      <!-- Card Header - Dropdown -->
       <div class="card-body">
         <div class="table-transaksi">
           <table class="table table-striped">
@@ -252,32 +233,6 @@
             </tbody>
           </table>
         </div>
-      </div>
-    </div>
-  </div>
-  {{-- END --}}
-  <!-- Bidang Ajar -->
-  <div class="col-xl-4 col-lg-5">
-    <div class="card shadow mb-4">
-      <!-- Card Header - Dropdown -->
-      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-        <h6 class="m-0 font-weight-bold text-primary">{{ $chart1->options['chart_title'] }}</h6>
-        <div class="dropdown no-arrow">
-          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-            <div class="dropdown-header">Dropdown Header:</div>
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-      </div>
-      <div class="card-body">
-        {!! $chart1->renderHtml() !!}
       </div>
     </div>
   </div>

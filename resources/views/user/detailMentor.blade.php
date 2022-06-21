@@ -7,7 +7,7 @@
   <div class="content-mentor d-flex flex-row justify-content-between" style="margin-top: 24px">
     <div class="container-dalam d-flex flex-row">
       <div class="gambar">
-        <img style="border-radius: 5px; width: 300px" src="/img/{{ $detailMentor->gambar }}" alt="">
+        <img style="border-radius: 5px; width: 300px" src="/img/mentor/{{ $detailMentor->gambar }}" alt="">
         <div class="mt-4">
           <h4 class="">Rating</h4>
           <span><span class="fa fa-star checkedStar"></span> {{number_format((float)$ratingMedian, 1,'.','')}} / 5

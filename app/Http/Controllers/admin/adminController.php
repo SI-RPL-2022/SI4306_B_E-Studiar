@@ -48,6 +48,7 @@ class adminController extends Controller
             'aggregate_function' => 'sum',
             'aggregate_field' => 'total_bayar',
             'chart_type' => 'line',
+            'where_raw' => 'status = "Terverifikasi"'
         ];
         if ($request->filterPendapatan != null and $filter == 'filterPendapatan') {
             $chart_options['group_by_period'] = $request->filterPendapatan;
@@ -64,11 +65,18 @@ class adminController extends Controller
             // 'group_by_period' => 'month',
             'chart_type' => 'bar',
             'filter_field' => 'created_at',
+            'where_raw' => 'status = "Terverifikasi"'
         ];
         if ($filter != null and $request->filter != '*' and $filter != 'filterPendapatan') {
             $chart_options['filter_days'] = (int)$request->filter;
         }
         $chart3 = new LaravelChart($chart_options);
+
+        $transaksiBayar = DB::table('pembayarans')->join('mentors', 'mentors.id', '=', 'pembayarans.id_mentor')->select('mentors.nama', DB::raw('count(pembayarans.id_mentor) as total, pembayarans.id_mentor, sum(pembayarans.total_bayar) as totalPendapatan'))->groupBy('pembayarans.id_mentor')->orderBy('total', 'desc')->limit(5)->get();
+        $mentorLaku = [
+            'chart_title' => 'Mentor Paling Banyak Diminati',
+            'data' => $transaksiBayar,
+        ];
 
         $total_mentor = DB::table('mentors')->count();
         $total_murid = DB::table('users')->count();
@@ -102,8 +110,9 @@ class adminController extends Controller
 
         $transaksi = Pembayaran::all();
 
-        return view('admin.index', compact('chart1', 'pendapatan', 'chart3', 'total_transaksi', 'total_pendapatan', 'total_murid', 'total_mentor', 'filter', 'filterPendapatan', 'transaksi'));
-        
+        return view('admin.index', compact('chart1', 'pendapatan', 'chart3', 'total_transaksi', 'total_pendapatan', 'total_murid', 'total_mentor', 'filter', 'filterPendapatan', 'transaksi', 'mentorLaku'));
+
+        // return view('admin.index', compact('chart1', 'pendapatan', 'chart3', 'total_transaksi', 'total_pendapatan', 'total_murid', 'total_mentor', 'filter', 'filterPendapatan', 'mentorLaku'));
     }
 
     public function data_pembayaran()

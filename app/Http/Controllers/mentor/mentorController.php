@@ -4,14 +4,20 @@ namespace App\Http\Controllers\mentor;
 
 use App\Http\Controllers\Controller;
 use App\Models\BidangAjar;
+use App\Models\Feedback;
 use App\Models\JadwalAjar;
+use App\Models\Mentor;
 use App\Models\Pembayaran;
 use App\Models\PermintaanAjar;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use MaddHatter\LaravelFullcalendar\Facades\Calendar;
+use LaravelDaily\LaravelCharts\Classes\LaravelChart;
+use Response;
+
 // use Illuminate\Support\Str;
 
 class mentorController extends Controller
@@ -21,18 +27,122 @@ class mentorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    // public function index()
+    // {
+    //     return view('mentor/dashboard');
+    // }
+    public function index(Request $request, $filter = null)
     {
-        return view('mentor/dashboard');
+        // dd($chartType);
+        // $filterData = $request->filter == '*';
+
+        $chart_options = [
+            'chart_title' => 'Rating Bedasarkan Feedback',
+            'report_type' => 'group_by_string',
+            'model' => 'App\Models\Feedback',
+            'group_by_field' => 'rating',
+            'chart_type' => 'pie',
+            'filter_field' => 'created_at',
+            'where_raw' => 'id_mentor = ' . auth()->user()->id
+        ];
+        $chart1 = new LaravelChart($chart_options);
+        // dd($chart1);
+
+        $chart_options = [
+            'chart_title' => 'Hasil Pendapatan',
+            'report_type' => 'group_by_date',
+            'model' => 'App\Models\Pembayaran',
+            'group_by_field' => 'created_at',
+            'aggregate_function' => 'sum',
+            'aggregate_field' => 'total_bayar',
+            'chart_type' => 'line',
+            'where_raw' => 'id_mentor = ' . auth()->user()->id . ' and status = "Terverifikasi"'
+        ];
+        if ($request->filterPendapatan != null and $filter == 'filterdata') {
+            $chart_options['group_by_period'] = $request->filterPendapatan;
+        } else {
+            $chart_options['group_by_period'] = 'day';
+        }
+        $pendapatan = new LaravelChart($chart_options);
+
+        $chart_options = [
+            'chart_title' => 'Total Permintaan',
+            'report_type' => 'group_by_date',
+            'model' => 'App\Models\JadwalAjar',
+            'group_by_field' => 'created_at',
+            'aggregate_function' => 'count',
+            // 'aggregate_field' => 'total_bayar',
+            'chart_type' => 'line',
+            'where_raw' => 'id_mentor = ' . auth()->user()->id
+        ];
+        if ($request->filterPendapatan != null and $filter == 'filterdata') {
+            $chart_options['group_by_period'] = $request->filterPendapatan;
+        } else {
+            $chart_options['group_by_period'] = 'day';
+        }
+        $permintaanChart = new LaravelChart($chart_options);
+        // dd($pendapatan);
+
+        $chart_options = [
+            'chart_title' => 'Metode Bayar',
+            'report_type' => 'group_by_string',
+            'model' => 'App\Models\Pembayaran',
+            'group_by_field' => 'metode_bayar',
+            // 'group_by_period' => 'month',
+            'chart_type' => 'bar',
+            'filter_field' => 'created_at',
+        ];
+        if ($filter != null and $request->filter != '*' and $filter != 'filterdata') {
+            $chart_options['filter_days'] = (int)$request->filter;
+        }
+        $chart3 = new LaravelChart($chart_options);
+
+        // $feedback = DB::table('feedback')->where('id_mentor', '=', auth()->user()->id)->get();
+
+
+        $userPermintaan = DB::table('jadwal_ajars')->join('users', 'users.id', '=', 'jadwal_ajars.id_pelajar')->where('jadwal_ajars.id_mentor', '=', auth()->user()->id)->select('users.nama', DB::raw('count(jadwal_ajars.id_pelajar) as total, jadwal_ajars.id_pelajar, sum(jadwal_ajars.durasi) as totalDurasi'))->groupBy('jadwal_ajars.id_pelajar')->orderBy('total', 'desc')->limit(5)->get();
+
+        $userPalingPermintaan = [
+            'chart_title' => 'User Paling Banyak Melakukan Permintaan',
+            'data' => $userPermintaan,
+        ];
+        $total_pendapatan = DB::table('pembayarans')->where('id_mentor', auth()->user()->id)->where('status', 'Terverifikasi')->sum('total_bayar');
+        $total_mentoring_dilakukan = DB::table('jadwal_ajars')->where('id_mentor', auth()->user()->id)->where('status', 'Done')->count();
+        $total_permintaan = DB::table('jadwal_ajars')->where('id_mentor', auth()->user()->id)->count();
+
+        if ($filter == 'filter' and $request->filter != '*') {
+            $total_mentoring_dilakukan = DB::table('jadwal_ajars')->where('id_mentor', auth()->user()->id)->where('status', 'Done')->where('created_at', '>', now()->subDays((int)$request->filter)->endOfDay())->count();
+            $total_pendapatan = DB::table('pembayarans')->where('id_mentor', auth()->user()->id)->where('status', 'Terverifikasi')->where('created_at', '>', now()->subDays((int)$request->filter)->endOfDay())->sum('total_bayar');
+            $total_permintaan = DB::table('jadwal_ajars')->where('id_mentor', auth()->user()->id)->where('created_at', '>', now()->subDays((int)$request->filter)->endOfDay())->count();
+        }
+
+        $filterValue = 0;
+        if ((int)$request->filter <= 30) {
+            $filterValue = $request->filter . ' hari terakhir';
+        }
+        if ((int)$request->filter > 30) {
+            $filterValue = (int)$request->filter / 30 . ' bulan terakhir';
+        }
+        if ((int)$request->filter == '*') {
+            $filterValue = 'Semua Waktu';
+        }
+
+        $filterPendapatan = null;
+        if ($request->filterPendapatan == 'month') $filterPendapatan = 'Perbulan';
+        if ($request->filterPendapatan == 'day') $filterPendapatan = 'Perhari';
+        if ($request->filterPendapatan == 'year') $filterPendapatan = 'Pertahun';
+
+        $filter = is_numeric($request->filter) ? $filterValue : null;
+        return view('mentor.dashboard', compact('chart1', 'pendapatan', 'chart3', 'total_pendapatan', 'total_mentoring_dilakukan', 'total_permintaan', 'filter', 'filterPendapatan', 'userPalingPermintaan', 'permintaanChart'));
     }
-    public function feedback()
-    {
-        return view('mentor/feedback');
-    }
+
 
     public function jadwal_ajar()
     {
-        $jadwal = JadwalAjar::join('users', 'users.id', '=', 'jadwal_ajars.id_pelajar')->join('pembayarans', 'pembayarans.id_user', '=', 'jadwal_ajars.id_pelajar')->where('jadwal_ajars.id_mentor', '=', Auth()->user()->id)->get(['jadwal_ajars.id AS id_jadwal', 'jadwal_ajars.*', 'users.*', 'pembayarans.status AS status_bayar', 'pembayarans.tgl_bayar AS tgl_bayar']);
+        $jadwal = Pembayaran::join('users', 'users.id', '=', 'pembayarans.id_user')->join('jadwal_ajars', 'jadwal_ajars.id_pelajar', '=', 'pembayarans.id_user')->where('jadwal_ajars.id_mentor', '=', Auth()->user()->id)->get(['jadwal_ajars.id AS id_jadwal', 'jadwal_ajars.*', 'users.*', 'pembayarans.status AS status_bayar', 'pembayarans.tgl_bayar AS tgl_bayar']);
+        // $jadwal = Pembayaran::join('users', 'users.id', '=', 'pembayarans.id_user')->where('pembayarans.id_mentor', '=', Auth()->user()->id)->join('jadwal_ajars', 'jadwal_ajars.id_pelajar', '=', 'users.id')->get();
+        $jadwal = $jadwal->unique('id_jadwal');
+        // dd($jadwal);
         return view('mentor/jadwal_ajar', compact('jadwal'));
     }
 
@@ -82,7 +192,7 @@ class mentorController extends Controller
 
     public function permintaan_ajar()
     {
-        $permintaan_ajar = PermintaanAjar::join('users', 'permintaan_ajars.id_pelajar', '=', 'users.id')->join('bidang_ajars', 'bidang_ajars.id', '=', 'permintaan_ajars.id_bidang')->get(['permintaan_ajars.*', 'permintaan_ajars.id as id_permintaan', 'users.*', 'bidang_ajars.*']);
+        $permintaan_ajar = PermintaanAjar::join('users', 'permintaan_ajars.id_pelajar', '=', 'users.id')->join('bidang_ajars', 'bidang_ajars.id', '=', 'permintaan_ajars.id_bidang')->where('bidang_ajars.id_mentor', '=', auth()->user()->id)->get(['permintaan_ajars.*', 'permintaan_ajars.id as id_permintaan', 'users.*', 'bidang_ajars.*']);
 
         $page = 'Permintaan Ajar';
         return view('mentor.permintaan_ajar', compact('permintaan_ajar', 'page'));
@@ -134,6 +244,22 @@ class mentorController extends Controller
         return redirect('mentor/permintaan-ajar');
     }
 
+    public function update_password(Request $request)
+    {
+        $mentor = Mentor::find(auth()->user()->id);
+        $mentor->update([
+            'password' => Hash::make($request->password),
+        ]);
+        toast('Berhasil mengubah password', 'success', 'top-right');
+        return redirect()->back();
+    }
+
+    public function show_feedback()
+    {
+        $feedback = Feedback::all();
+        return view('mentor/feedback', compact('feedback'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -163,7 +289,9 @@ class mentorController extends Controller
      */
     public function show($id)
     {
-        //
+        $mentor = Mentor::find($id);
+        $bidang = BidangAjar::join('mentors', 'mentors.id', 'bidang_ajars.id_mentor')->where('mentors.id', '=', auth()->user()->id)->get();
+        return view('mentor/profile', compact('bidang', 'mentor'));
     }
 
     /**
@@ -172,9 +300,43 @@ class mentorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        $imgName = $request->image;
+
+        if ($request->image) {
+            $imgName = $request->image->getClientOriginalName() . '-' . time()
+                . '.' . $request->image->extension();
+            $mentor = Mentor::find($id)->update([
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'tgl_lahir' => $request->tgl_lahir,
+                'tahun_ngajar' => $request->tahun_ngajar,
+                'deskripsi' => $request->deskripsi,
+                'gambar' => $imgName,
+            ]);
+
+            if ($mentor) {
+                $request->image->move(public_path('img/mentor/'), $imgName);
+            }
+        } else {
+            Mentor::find($id)->update([
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'tgl_lahir' => $request->tgl_lahir,
+                'tahun_ngajar' => $request->tahun_ngajar,
+                'deskripsi' => $request->deskripsi,
+            ]);
+        }
+
+        toast('Berhasil mengubah profile anda', 'success', 'top-right');
+        return redirect()->back();
+    }
+
+    public function check_old_password(Request $request)
+    {
+        $data = ['message' => 'Called successfully.'];
+        return Response::json($data);
     }
 
     /**
