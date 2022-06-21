@@ -111,9 +111,9 @@
       </div>
       <!-- Card Body -->
       <div class="card-body">
-        <div class="chart-area">
+        {{-- <div class="chart-area"> --}}
           {!! $chart3->renderHtml() !!}
-        </div>
+          {{-- </div> --}}
       </div>
     </div>
   </div>
@@ -141,7 +141,7 @@
 <div class="row">
   {{-- Start --}}
   <div class="col-xl-7 col-lg-6">
-    <div class="card shadow mb-4">
+    <div class="card shadow mb-4" style="height: 100%">
       <!-- Card Header - Dropdown -->
       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <h6 class="m-0 font-weight-bold text-primary">{{ $pendapatan->options['chart_title'] }}</h6>
@@ -170,7 +170,7 @@
   {{-- END --}}
   <!-- Bidang Ajar -->
   <div class="col-xl-5 col-lg-6">
-    <div class="card shadow mb-4">
+    <div class="card shadow mb-4" style="height: 100%">
       <!-- Card Header - Dropdown -->
       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <h6 class="m-0 font-weight-bold text-primary">{{ $mentorLaku['chart_title'] }}</h6>
@@ -180,24 +180,27 @@
         <table class="table table-striped table-hover">
           <thead>
             <tr>
-              <th scope="col">Nama</th>
-              <th scope="col">Peminat</th>
-              <th scope="col">Pendapatan</th>
+              <th class="text-center" scope="col">Nama</th>
+              <th class="text-center" scope="col">Peminat</th>
+              <th class="text-center" scope="col">Pendapatan</th>
             </tr>
           </thead>
           <tbody>
             @foreach ($mentorLaku['data'] as $item)
             <tr>
-              <td><a class="fw-bold" style="color: rgb(117, 117, 117)"
+              <td class="text-center"><a class="fw-bold text-center" style="color: rgb(117, 117, 117)"
                   href="/admin/mentor/{{$item->id_mentor}}/detail">{{$item->nama}}</a>
               </td>
+
               <td class="text-center">
                 {{-- <span class="badge bg-info">{{$item->total}}</span> --}}
                 {{$item->total}}
               </td>
+
               <td class="text-center">
                 <span class="badge bg-success">{{rupiah($item->totalPendapatan)}}</span>
               </td>
+
             </tr>
             @endforeach
           </tbody>
@@ -206,7 +209,7 @@
     </div>
   </div>
   <div class="col-xl-12 col-lg-12">
-    <div class="card shadow mb-4">
+    <div class="card shadow mb-4 mt-4">
       <!-- Card Header - Dropdown -->
       <div class="card-body">
         <div class="table-transaksi">
