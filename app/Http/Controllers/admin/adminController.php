@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
+
 class adminController extends Controller
 {
     public function __construct()
@@ -98,7 +99,11 @@ class adminController extends Controller
         if ($request->filterPendapatan == 'year') $filterPendapatan = 'Pertahun';
 
         $filter = is_numeric($request->filter) ? $filterValue : null;
-        return view('admin.index', compact('chart1', 'pendapatan', 'chart3', 'total_transaksi', 'total_pendapatan', 'total_murid', 'total_mentor', 'filter', 'filterPendapatan'));
+
+        $transaksi = Pembayaran::all();
+
+        return view('admin.index', compact('chart1', 'pendapatan', 'chart3', 'total_transaksi', 'total_pendapatan', 'total_murid', 'total_mentor', 'filter', 'filterPendapatan', 'transaksi'));
+        
     }
 
     public function data_pembayaran()

@@ -228,7 +228,30 @@
         </div>
       </div>
       <div class="card-body">
-        //
+        <div class="table-transaksi">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Nama Mentor</th>
+                <th scope="col">Nama User</th>
+                <th scope="col">Status</th>
+                <th scope="col">Nominal</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($transaksi as $item)
+              <tr>
+                <th scope="row">{{$loop->iteration}}</th>
+                <td>{{$item->mentors->nama}}</td>
+                <td>{{$item->users->nama}}</td>
+                <td>{{$item->status}}</td>
+                <td>{{$item->total_bayar}}</td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
