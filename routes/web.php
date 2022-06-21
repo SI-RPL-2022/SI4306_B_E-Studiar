@@ -65,6 +65,8 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('admin/pembayaran/{id}/terima', [adminController::class, 'terima_pembayaran']);
     Route::get('admin/pembayaran/{id}/tolak', [adminController::class, 'tolak_pembayaran']);
 
+    Route::get('admin/transaksi', [adminController::class, 'data_transaksi']);
+
     Route::get('admin/mentor/{id}/banned', [mentorController::class, 'banned_mentor']);
     Route::get('admin/mentor/{id}/hapus', [mentorController::class, 'hapus_mentor']);
 
