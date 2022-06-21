@@ -8,6 +8,30 @@
     --white-color: #ffffff;
 }
 
+.checkedStar {
+    color: orange;
+}
+
+.feedback-name {
+    font-weight: 500;
+    font-size: 17px;
+    margin-bottom: 0;
+}
+
+.feedback-time {
+    font-weight: 500;
+    font-size: 13px;
+    color: #8b8b91;
+    margin-top: 0;
+}
+
+.feedback-review {
+    font-weight: normal;
+    font-size: 15px;
+    color: #8b8b91;
+    margin-top: 0;
+}
+
 .primary-color {
     color: var(--primary-color) !important;
 }
