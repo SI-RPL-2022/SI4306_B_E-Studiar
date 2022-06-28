@@ -9,6 +9,7 @@ use App\Models\Mentor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 
 
@@ -99,7 +100,19 @@ class mentorController extends Controller
             $calon_mentors->delete();
         });
 
-        return redirect('admin/calon-mentor')->with('success', 'Berhasil acc akun mentor ' . $calon_mentors['nama']);
+        $details = [
+            'title' => 'Status Akun Mentor ' . $calon_mentors->nama,
+            'dear' => 'Dear, ' . $calon_mentors->nama,
+            'status' => 'Telah diterima',
+            'credential_title' => 'Account Credentials',
+            'email' => $calon_mentors->email,
+            'password' => '123456',
+            'info_login' => 'Lakukan penggantian password setelah melakukan login untuk menjaga keamanan.',
+            'body' => 'Pengajuan akun anda berhasil dibuat dan sudah setujui oleh administrator. Silakan gunakan credentials berikut untuk melakukan login.'
+        ];
+        Mail::to($calon_mentors->email)->send(new \App\Mail\NotifTerimaMentor($details));
+
+        return redirect('admin/calon-mentor')->with('success', 'Informasi penerimaan akun berhasil dikirim melalui email');
     }
 
     public function tolak_mentor($id)
@@ -108,8 +121,19 @@ class mentorController extends Controller
         $calon_mentors->update([
             'status' => 'ditolak',
         ]);
+        $details = [
+            'title' => 'Status Akun Mentor ' . $calon_mentors->nama,
+            'dear' => 'Dear, ' . $calon_mentors->nama,
+            'status' => 'Ditolak',
+            'credential_title' => '',
+            'email' => '',
+            'password' => '',
+            'info_login' => '',
+            'body' => 'Pengajuan akun mentor anda saat ini telah ditolak oleh admin. Silakan hubungi administrator Estudir untuk informasi lebih lanjut.'
+        ];
+        Mail::to($calon_mentors->email)->send(new \App\Mail\NotifMailMentor($details));
 
-        return redirect('admin/calon-mentor')->with('success', 'Berhasil menolak akun mentor ' . $calon_mentors->nama);
+        return redirect('admin/calon-mentor')->with('success', 'Informasi penolakan berhasil dikirim melalui email');
     }
 
     public function hapus_mentor($id)
