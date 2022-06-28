@@ -72,9 +72,53 @@
               <span class="badge bg-warning text-dark mb-0">{{$data->bidang}}</span>
               <span class="badge bg-light text-dark">{{rupiah($data->tarif)}}</span>
             </div>
-            <h5 class="font-weight-bold text-primary">{{$data->nama_kelas}}</h5>
+            <h5 data-bs-toggle="modal" data-bs-target="#updateKelas" class="font-weight-bold text-primary"
+              style="cursor: pointer">
+              {{$data->nama_kelas}}</h5>
           </div>
         </li>
+
+        <!-- Update -->
+        <div class="modal fade" id="updateKelas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detail Kelas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form action="/mentor/kelas/update/{{$data->id}}" method="post">
+                @csrf
+                <div class="modal-body">
+                  <div class="mb-3">
+                    <label class="form-label">Bidang</label>
+                    <input type="text" class="form-control" name="bidang" value="{{$data->bidang}}">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Nama Kelas</label>
+                    <input type="text" class="form-control" name="nama_kelas" value="{{$data->nama_kelas}}">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Tarif / jam</label>
+                    <div class="input-group">
+                      <div class="input-group-text">Rp.</div>
+                      <input type="text" class="form-control" name="tarif" value="{{$data->tarif}}">
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Deskripsi Kelas</label>
+                    <textarea class="form-control" name="deskripsi">{{$data->deskripsi}}</textarea>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"
+                    data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Save
+                    changes</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
         @endforeach
       </ul>
 

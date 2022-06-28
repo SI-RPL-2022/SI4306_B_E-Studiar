@@ -108,6 +108,8 @@ Route::middleware('auth:mentor')->group(function () {
     Route::post('mentor/profile/{id}', [ControllerMentor::class, 'edit']);
     Route::post('mentor/ubah-password', [ControllerMentor::class, 'update_password']);
 
+    Route::post('mentor/kelas/update/{id}', [ControllerMentor::class, 'update_kelas']);
+
     Route::post('mentor/{filter}', [ControllerMentor::class, 'index']);
     // permintaan Ajar
     Route::get('mentor/permintaan-ajar', [ControllerMentor::class, 'permintaan_ajar']);

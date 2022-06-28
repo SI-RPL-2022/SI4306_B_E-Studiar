@@ -254,6 +254,19 @@ class mentorController extends Controller
         return redirect()->back();
     }
 
+    public function update_kelas(Request $request, $id)
+    {
+        $mentor = BidangAjar::where('id_mentor', '=', auth()->user()->id)->where('id', '=', $id)->get()->first()->first();
+        $mentor->update([
+            'bidang' => $request->bidang,
+            'nama_kelas' => $request->nama_kelas,
+            'tarif' => $request->tarif,
+            'deskripsi' => $request->deskripsi,
+        ]);
+        toast('Berhasil mengubah kelas', 'success', 'top-right');
+        return redirect()->back();
+    }
+
     public function show_feedback()
     {
         $feedback = Feedback::all();
@@ -290,7 +303,7 @@ class mentorController extends Controller
     public function show($id)
     {
         $mentor = Mentor::find($id);
-        $bidang = BidangAjar::join('mentors', 'mentors.id', 'bidang_ajars.id_mentor')->where('mentors.id', '=', auth()->user()->id)->get();
+        $bidang = BidangAjar::where('id_mentor', '=', auth()->user()->id)->get();
         return view('mentor/profile', compact('bidang', 'mentor'));
     }
 
