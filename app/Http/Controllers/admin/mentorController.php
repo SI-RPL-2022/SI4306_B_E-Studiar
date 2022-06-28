@@ -114,7 +114,9 @@ class mentorController extends Controller
 
     public function hapus_mentor($id)
     {
-        Mentor::find($id)->delete();
+        $mentor = Mentor::find($id);
+        BidangAjar::where('id_mentor', '=', $mentor->id)->get()->first()->delete();
+        $mentor->delete();
         alert()->success('Berhasil', 'Berhasil menghapus akun mentor');
         return redirect('admin/mentor');
     }

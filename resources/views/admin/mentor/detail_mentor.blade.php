@@ -10,14 +10,12 @@
     <div class="card-header py-3 d-flex justify-content-between align-items-center">
       <h6 class="m-0 font-weight-bold">Status: {{$mentors->status}}</h6>
       <div class="dropdown">
-        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle" type="button"
-          id="dropdownMenuButtonAksi" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle" type="button" id="dropdownMenuButtonAksi" data-bs-toggle="dropdown" aria-expanded="false">
           Aksi
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonAksi">
           <li><a class="dropdown-item" href="/admin/mentor/{{$mentors->id}}/banned">Banned</a>
           </li>
-          <li><a class="dropdown-item" href="/admin/mentor/{{$mentors->id}}/hapus">Hapus</a></li>
         </ul>
       </div>
     </div>
@@ -25,8 +23,7 @@
     <div class="card-body">
       <div class="row justify-content-between">
         <div class="col-3 d-flex justify-content-center">
-          <img src="/img/mentor/{{$mentors->gambar}}" height="250px" width="200px" alt="" srcset=""
-            style="border-radius: 16px">
+          <img src="/img/mentor/{{$mentors->gambar}}" height="250px" width="200px" alt="" srcset="" style="border-radius: 16px">
         </div>
         <div class="col-4">
           <h4>Tentang</h4>
@@ -95,10 +92,8 @@
           </p>
         </div>
         <div class="modal-footer">
-          <button type="submit"
-            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm me-2 fw-boldy">Terima</button>
-          <button type="button" data-bs-dismiss="modal"
-            class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm me-2 fw-bold">Batal</button>
+          <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm me-2 fw-boldy">Terima</button>
+          <button type="button" data-bs-dismiss="modal" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm me-2 fw-bold">Batal</button>
         </div>
       </form>
     </div>
@@ -119,10 +114,8 @@
           <p>Apakah anda yakin akan menolak akun calon mentor benama <span class="fw-bold">{{$mentors->nama}}</span></p>
         </div>
         <div class="modal-footer">
-          <button type="submit"
-            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm me-2 fw-boldy">Tolak</button>
-          <button type="button" data-bs-dismiss="modal"
-            class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm me-2 fw-bold">Batal</button>
+          <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm me-2 fw-boldy">Tolak</button>
+          <button type="button" data-bs-dismiss="modal" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm me-2 fw-bold">Batal</button>
         </div>
       </form>
     </div>

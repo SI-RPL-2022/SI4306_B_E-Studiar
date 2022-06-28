@@ -46,7 +46,7 @@ Route::post('/pencarianguru/filter', [MainController::class, 'filter_guru']);
 Route::post('/permintaan/ajar', [PermintaanController::class, 'permintaan_ajar']);
 
 // ADMIN ROUTES
-Route::get('admin/login', [adminLogin::class, 'login']);
+Route::get('admin/login', [adminLogin::class, 'login'])->name('admin.login');
 Route::post('admin/login', [adminLogin::class, 'authenticate']);
 // ['middleware' => ['role:admin']]
 Route::middleware('auth:admin')->group(function () {
