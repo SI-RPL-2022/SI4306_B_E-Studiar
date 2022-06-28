@@ -269,7 +269,7 @@ class mentorController extends Controller
 
     public function show_feedback()
     {
-        $feedback = Feedback::all();
+        $feedback = Feedback::where("id_mentor","=",auth()->user()->id)->get();
         return view('mentor/feedback', compact('feedback'));
     }
 
